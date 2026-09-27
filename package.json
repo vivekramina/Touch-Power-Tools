@@ -1,0 +1,22 @@
+{
+  "name": "touchpower-ecommerce",
+  "version": "1.0.0",
+  "description": "TouchPower Heavy-Duty Power Tools eCommerce Platform",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "keywords": [
+    "powertools",
+    "ecommerce",
+    "hardware",
+    "heavy-duty",
+    "brushless"
+  ],
+  "author": "TouchPower Technologies Inc.",
+  "license": "ISC",
+  "dependencies": {
+    "pg": "^8.23.0"
+  }
+}

@@ -1,0 +1,50 @@
+/* ============================================================================
+   TouchPower™ - Cart Drawer & Checkout Styles
+   Light Mode Theme: Crisp white drawer, soft shadows, clear Rupee order totals.
+   Zero warranty mentions.
+   ============================================================================ */
+
+/* Slide-out Cart Drawer (Light Mode) */
+#cart-drawer {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: auto;
+  width: 440px;
+  max-width: 90vw;
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+  background: #ffffff;
+  border-left: 1px solid var(--border-medium);
+  box-shadow: -10px 0 40px rgba(15, 23, 42, 0.15);
+  animation: slide-in-right 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+  color: #0f172a;
+}
+
+@keyframes slide-in-right {
+  from { transform: translateX(100%); }
+  to { transform: translateX(0); }
+}
+
+/* Shipping Option Radio Card */
+.shipping-option {
+  transition: all 0.2s ease;
+  border-radius: 6px;
+}
+
+.shipping-option:hover {
+  background: #f8fafc !important;
+}
+
+.checkout-card {
+  box-shadow: var(--shadow-sm);
+  border-radius: 8px;
+}
+
+@media (max-width: 900px) {
+  .checkout-layout {
+    grid-template-columns: 1fr !important;
+  }
+}

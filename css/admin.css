@@ -1,0 +1,60 @@
+/* ============================================================================
+   TouchPower™ - Protected Admin Operations Dashboard Styles
+   Light Mode Theme: White cards, deep slate text, warm amber/orange highlights.
+   Zero warranty mentions.
+   ============================================================================ */
+
+.admin-nav-tab {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 14px;
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: 6px;
+  color: #334155;
+  font-family: var(--font-heading);
+  font-size: 0.9rem;
+  font-weight: 700;
+  text-align: left;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  width: 100%;
+}
+
+.admin-nav-tab:hover {
+  background: #f1f5f9;
+  color: #0f172a;
+}
+
+.admin-nav-tab.active {
+  background: var(--accent-orange);
+  color: #ffffff;
+  border-color: var(--accent-orange);
+  box-shadow: 0 4px 12px rgba(234, 88, 12, 0.25);
+}
+
+.admin-table {
+  border-collapse: collapse;
+}
+
+.admin-table tr:hover td {
+  background: rgba(245, 158, 11, 0.04);
+}
+
+.kpi-card {
+  box-shadow: var(--shadow-sm);
+  border-radius: 8px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.kpi-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+@media (max-width: 900px) {
+  .admin-body-layout {
+    grid-template-columns: 1fr !important;
+  }
+}

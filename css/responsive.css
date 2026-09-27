@@ -1,0 +1,178 @@
+/* ============================================================================
+   TouchPower™ - Responsive & Mobile Optimizations
+   Light Mode Theme: Frosted mobile nav bar, touch targets, and flexible grid layouts.
+   Zero warranty mentions.
+   ============================================================================ */
+
+/* Mobile Bottom Navigation Bar (Light Mode) */
+.mobile-bottom-bar {
+  display: none;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 62px;
+  background: rgba(255, 255, 255, 0.96);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border-top: 1px solid var(--border-subtle);
+  z-index: 1000;
+  justify-content: space-around;
+  align-items: center;
+  padding: 0 10px;
+  box-shadow: 0 -4px 16px rgba(15, 23, 42, 0.05);
+  transform: translateZ(0);
+}
+
+.mobile-nav-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  text-decoration: none;
+  color: var(--text-muted);
+  font-family: var(--font-heading);
+  font-size: 0.68rem;
+  font-weight: 700;
+  position: relative;
+  transition: color 0.2s ease;
+}
+
+.mobile-nav-item svg {
+  width: 20px;
+  height: 20px;
+}
+
+.mobile-nav-item:hover, .mobile-nav-item.active {
+  color: var(--accent-orange);
+}
+
+.mobile-nav-badge {
+  position: absolute;
+  top: -4px;
+  right: 6px;
+  background: var(--accent-orange);
+  color: #ffffff;
+  border-radius: 50%;
+  width: 16px;
+  height: 16px;
+  font-size: 0.65rem;
+  font-weight: 800;
+  font-family: var(--font-mono);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Tablet & Mobile Breakpoints */
+@media (max-width: 1024px) {
+  .main-nav {
+    display: none !important;
+  }
+
+  .mobile-menu-toggle {
+    display: flex !important;
+  }
+
+  .search-trigger-btn span, .search-kbd {
+    display: none;
+  }
+
+  .hero-inner {
+    grid-template-columns: 1fr !important;
+    text-align: center;
+  }
+
+  .hero-subtitle {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .hero-cta-group {
+    justify-content: center;
+  }
+
+  .hero-metrics {
+    justify-content: center;
+  }
+
+  .hero-visual {
+    margin-top: 30px;
+  }
+}
+
+@media (max-width: 768px) {
+  .top-announcement-bar {
+    display: none;
+  }
+
+  .header-container {
+    height: auto !important;
+    padding-top: 10px;
+    padding-bottom: 12px;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .header-search-wrapper {
+    order: 3;
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 100% !important;
+  }
+
+  .search-kbd-shortcut {
+    display: none;
+  }
+
+  .search-submit-btn span {
+    display: none;
+  }
+
+  .search-submit-btn {
+    padding: 0 10px;
+  }
+
+  .mobile-bottom-bar {
+    display: flex;
+  }
+
+  body {
+    padding-bottom: 64px;
+  }
+
+  .hero-title {
+    font-size: 2.2rem !important;
+  }
+
+  .hero-section {
+    padding: 40px 0 30px 0 !important;
+  }
+
+  .cart-total-pill {
+    display: none;
+  }
+
+  .products-grid {
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)) !important;
+    gap: 14px !important;
+  }
+
+  .card-actions-row {
+    grid-template-columns: 1fr !important;
+  }
+
+  .card-image-box {
+    height: 150px !important;
+  }
+
+  .product-thumb-img {
+    max-height: 120px !important;
+  }
+
+  .btn-ai-hero {
+    width: 100%;
+    justify-content: center;
+  }
+}
+

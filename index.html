@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <!-- Primary SEO Meta Tags -->
+  <title>TouchPower Vlogs | Official Pro Tool & Multi-Brand Hardware Store</title>
+  <meta name="title" content="TouchPower Vlogs | Official Pro Tool & Multi-Brand Hardware Store">
+  <meta name="description" content="Official store of TouchPower Vlogs. Field-tested heavy-duty power tools, diamond blades, and safety gear curated from leading commercial brands.">
+  <meta name="keywords" content="TouchPower Vlogs, power tool reviews, cordless hammer drill, diamond blades, safety helmet, work gloves, safety shoes, contractor tools">
+  <meta name="author" content="TouchPower Vlogs">
+  <meta name="robots" content="index, follow">
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://touchpower.com/">
+  <meta property="og:title" content="TouchPower Vlogs | Field-Tested Pro Tool Store">
+  <meta property="og:description" content="Tested on jobsites by TouchPower Vlogs. Curated heavy-duty tools, blades, and safety gear from top industry brands.">
+  <meta property="og:image" content="assets/images/hero_drill_desktop.png">
+
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image">
+  <meta property="twitter:url" content="https://touchpower.com/">
+  <meta property="twitter:title" content="TouchPower Vlogs | Field-Tested Pro Tool Store">
+  <meta property="twitter:description" content="Tested on jobsites by TouchPower Vlogs. Curated heavy-duty tools, blades, and safety gear from top industry brands.">
+  <meta property="twitter:image" content="assets/images/hero_drill_desktop.png">
+
+  <!-- Google Fonts Preconnect: Outfit (Headings), Manrope (Editorial Body), Space Mono (Tech Specs) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Outfit:wght@500;600;700;800;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+  <!-- Tailwind CSS CDN + Industrial Custom Theme Configuration -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              light: '#f8fafc',
+              surface: '#ffffff',
+              card: '#ffffff',
+              dark: '#0f172a',
+              slate: '#334155',
+              muted: '#64748b',
+              yellow: '#f59e0b',
+              amber: '#f59e0b',
+              orange: '#ea580c',
+              border: '#e2e8f0'
+            }
+          },
+          fontFamily: {
+            heading: ['Outfit', 'sans-serif'],
+            body: ['Manrope', 'sans-serif'],
+            mono: ['Space Mono', 'monospace']
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Supabase JS Client Library CDN (Asynchronous) -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" async></script>
+
+  <!-- CSS Design System & Modules -->
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/header.css">
+  <link rel="stylesheet" href="css/home.css">
+  <link rel="stylesheet" href="css/catalog.css">
+  <link rel="stylesheet" href="css/product.css">
+  <link rel="stylesheet" href="css/cart-checkout.css">
+  <link rel="stylesheet" href="css/account.css">
+  <link rel="stylesheet" href="css/tracking.css">
+  <link rel="stylesheet" href="css/admin.css">
+  <link rel="stylesheet" href="css/responsive.css">
+  <link rel="stylesheet" href="css/ai-assistant.css">
+
+  <!-- Schema.org JSON-LD Structured Data for SEO -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Organization",
+        "@id": "https://touchpower.com/#organization",
+        "name": "TouchPower Heavy-Duty Power Tools",
+        "url": "https://touchpower.com",
+        "logo": "https://touchpower.com/assets/images/banner_machines.png",
+        "description": "Manufacturer of high-torque industrial brushless cordless power tools, diamond cutting discs, and OSHA safety gear.",
+        "contactPoint": {
+          "@type": "ContactPoint",
+          "telephone": "+1-800-868-2479",
+          "contactType": "Customer Support & Dispatch",
+          "areaServed": "US",
+          "availableLanguage": "English"
+        }
+      },
+      {
+        "@type": "WebSite",
+        "@id": "https://touchpower.com/#website",
+        "url": "https://touchpower.com",
+        "name": "TouchPower Pro Storefront",
+        "publisher": { "@id": "https://touchpower.com/#organization" },
+        "potentialAction": {
+          "@type": "SearchAction",
+          "target": "https://touchpower.com/#catalog?q={search_term_string}",
+          "query-input": "required name=search_term_string"
+        }
+      }
+    ]
+  }
+  </script>
+</head>
+<body>
+
+  <!-- Sticky Main Header with Transparent Glassmorphic Blur -->
+  <header class="main-header" id="site-header">
+    <div class="container header-container">
+      <!-- Brand Logo Wordmark -->
+      <a href="#home" class="brand-logo" aria-label="TouchPower Home">
+        <div class="logo-text-group">
+          <div class="logo-title">TOUCH<span>POWER</span></div>
+          <div class="logo-tagline">FIELD-TESTED PRO GEAR</div>
+        </div>
+      </a>
+
+      <!-- Desktop Navigation Menu -->
+      <nav class="main-nav" aria-label="Main Navigation">
+        <a href="#home" class="nav-link">Home</a>
+        <a href="#catalog?category=machines" class="nav-link">Machines</a>
+        <a href="#catalog?category=blades" class="nav-link">Blades</a>
+        <a href="#catalog?category=bits" class="nav-link">Bits</a>
+        <a href="#catalog?category=safety-guards" class="nav-link">Safety Guards</a>
+        <a href="#tracking" class="nav-link">Tracking</a>
+        <!-- Small AI Assistant Navigation Option -->
+        <button type="button" class="nav-ai-btn" id="nav-ai-assistant-btn" data-open-ai-assistant aria-label="TouchPower AI Assistant" title="TouchPower AI Commercial Tool Specialist">
+          <span class="nav-ai-icon-wrap">
+            <img src="assets/images/ai_assistant_logo.jpg" alt="AI Specialist" class="nav-ai-logo-img">
+          </span>
+          <span>AI Specialist</span>
+        </button>
+      </nav>
+
+      <!-- Long, Sleek, Perfect Commercial Search Bar -->
+      <div class="header-search-wrapper" id="header-search-container">
+        <form class="header-search-bar" id="header-search-form" autocomplete="off" role="search">
+          <div class="search-bar-inner">
+            <svg class="search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+              <circle cx="11" cy="11" r="8"></circle>
+              <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            </svg>
+            <input 
+              type="text" 
+              id="header-search-input" 
+              class="search-input" 
+              placeholder="Search tools, machines, diamond blades, bits, SKUs... (Ctrl + K)" 
+              aria-label="Search commercial tools"
+              autocomplete="off"
+              spellcheck="false"
+            >
+            <button type="button" class="search-clear-btn" id="header-search-clear" style="display: none;" title="Clear search">✕</button>
+            <kbd class="search-kbd-shortcut">/</kbd>
+            <button type="submit" class="search-submit-btn" aria-label="Execute search">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <circle cx="11" cy="11" r="8"></circle>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+              </svg>
+              <span>SEARCH</span>
+            </button>
+          </div>
+          <!-- Live Real-Time Floating Search Dropdown -->
+          <div class="search-live-dropdown" id="header-search-dropdown" style="display: none;"></div>
+        </form>
+      </div>
+
+      <!-- Action Tools -->
+      <div class="header-actions">
+        <!-- TouchPower AI Assistant Quick Access Icon -->
+        <button class="action-icon-btn btn-glass header-ai-action-btn" id="header-ai-action-btn" data-open-ai-assistant aria-label="TouchPower AI Assistant" title="TouchPower AI Commercial Specialist">
+          <span class="header-ai-action-box">
+            <img src="assets/images/ai_assistant_logo.jpg" alt="AI Assistant" class="header-ai-action-img">
+          </span>
+        </button>
+
+        <!-- Official TouchPower YouTube Channel Icon -->
+        <a href="https://www.youtube.com/@TOUCHPOWERVLOGS" target="_blank" rel="noopener noreferrer" class="action-icon-btn btn-glass youtube-channel-btn" aria-label="TouchPower YouTube Channel" title="TouchPower YouTube Channel (@TOUCHPOWERVLOGS)">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="#FF0000">
+            <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+          </svg>
+          <span class="youtube-pulse-dot" title="TouchPower Vlogs Live"></span>
+        </a>
+
+        <!-- User Profile Trigger -->
+        <button class="action-icon-btn btn-glass" id="header-account-btn" aria-label="Account profile" title="Contractor Profile">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+            <circle cx="12" cy="7" r="4"></circle>
+          </svg>
+        </button>
+
+        <!-- Wishlist Button -->
+        <a href="#wishlist" class="action-icon-btn btn-glass" id="header-wishlist-btn" aria-label="Saved Wishlist" title="Saved Tools">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+          </svg>
+          <span class="action-badge" id="header-wishlist-count" style="display: none;">0</span>
+        </a>
+
+        <!-- Cart Drawer Button (Unified Modern Pill) -->
+        <button class="cart-pill-btn" id="header-cart-btn" aria-label="Open Tool Cart" title="View Cart">
+          <span class="cart-pill-icon-wrap">
+            <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+              <line x1="3" y1="6" x2="21" y2="6"></line>
+              <path d="M16 10a4 4 0 0 1-8 0"></path>
+            </svg>
+            <span class="action-badge" id="header-cart-count">1</span>
+          </span>
+          <span class="cart-pill-divider"></span>
+          <span class="cart-total-pill" id="header-cart-total">₹9,999</span>
+        </button>
+
+        <!-- Mobile Menu Toggle Button -->
+        <button class="mobile-menu-toggle" id="mobile-menu-toggle" aria-label="Toggle navigation">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="3" y1="12" x2="21" y2="12"></line>
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <line x1="3" y1="18" x2="21" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Mobile Dropdown Navigation Drawer -->
+  <div id="mobile-nav-drawer" style="display: none; background: var(--bg-surface); padding: 18px 24px; border-bottom: 1px solid var(--border-medium);">
+    <div style="display: flex; flex-direction: column; gap: 12px;">
+      <!-- Small Mobile AI Option -->
+      <a href="javascript:void(0)" class="nav-link mobile-nav-ai-link" data-open-ai-assistant style="color: var(--accent-orange); font-weight: 700; display: flex; align-items: center; gap: 8px;">
+        <img src="assets/images/ai_assistant_logo.jpg" alt="AI" style="width: 18px; height: 18px; border-radius: 4px; object-fit: cover;">
+        <span>AI Assistant</span>
+      </a>
+
+      <a href="#home" class="nav-link">Home</a>
+      <a href="#catalog?category=machines" class="nav-link">Machines</a>
+      <a href="#catalog?category=blades" class="nav-link">Blades</a>
+      <a href="#catalog?category=bits" class="nav-link">Bits</a>
+      <a href="#catalog?category=safety-guards" class="nav-link">Safety Guards</a>
+      <a href="#tracking" class="nav-link">Track Order</a>
+      <a href="https://www.youtube.com/@TOUCHPOWERVLOGS" target="_blank" rel="noopener noreferrer" class="nav-link" style="color: #ef4444; font-weight: 700; display: flex; align-items: center; gap: 8px;">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="#FF0000"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+        YouTube: @TOUCHPOWERVLOGS ↗
+      </a>
+    </div>
+  </div>
+
+  <!-- SPA View Root Container -->
+  <main id="app-root" role="main">
+    <!-- Rendered dynamically by js/router.js -->
+  </main>
+
+  <!-- ========================================================================
+       MODAL DIALOGS
+       ======================================================================== -->
+
+  <!-- 1. Search Dialog Modal -->
+  <dialog id="search-dialog" aria-label="Search Catalog">
+    <div class="search-modal-box">
+      <div class="search-input-wrapper">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="11" cy="11" r="8"></circle>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+        </svg>
+        <input 
+          type="text" 
+          id="search-input-field" 
+          class="search-input-field" 
+          placeholder="Search by tool name, trade, voltage, or SKU..."
+          autocomplete="off"
+        >
+        <button class="search-close-btn" id="search-close-btn" aria-label="Close search">✕</button>
+      </div>
+
+      <div class="search-results-area" id="search-results-area">
+        <div style="font-size: 0.82rem; font-family: var(--font-mono); color: var(--accent-orange); font-weight: 700; margin-bottom: 12px; text-transform: uppercase;">
+          SUGGESTED POPULAR TOOLS:
+        </div>
+        <div class="search-results-list" style="display: flex; flex-direction: column; gap: 8px;">
+          <a href="#product?id=c3d4e5f6-a1b2-4c3d-8e9f-012345678901" class="search-result-item" onclick="document.getElementById('search-dialog').close();" style="display: flex; align-items: center; justify-content: space-between; padding: 10px 14px; background: #f8fafc; border: 1px solid var(--border-subtle); border-radius: 6px; text-decoration: none; color: #0f172a;">
+            <span style="font-weight: 600;">TouchPower X-Pro Rotary Hammer Drill</span>
+            <span style="font-family: var(--font-mono); font-weight: 700; color: var(--accent-orange);">₹9,999</span>
+          </a>
+          <a href="#product?id=b2c3d4e5-f6a1-4b2c-9d0e-123456789012" class="search-result-item" onclick="document.getElementById('search-dialog').close();" style="display: flex; align-items: center; justify-content: space-between; padding: 10px 14px; background: #f8fafc; border: 1px solid var(--border-subtle); border-radius: 6px; text-decoration: none; color: #0f172a;">
+            <span style="font-weight: 600;">VoltMaster Brushless SDS-Max Demolition Breaker</span>
+            <span style="font-family: var(--font-mono); font-weight: 700; color: var(--accent-orange);">₹24,999</span>
+          </a>
+          <a href="#product?id=d4e5f6a1-b2c3-4d0e-1f2a-345678901234" class="search-result-item" onclick="document.getElementById('search-dialog').close();" style="display: flex; align-items: center; justify-content: space-between; padding: 10px 14px; background: #f8fafc; border: 1px solid var(--border-subtle); border-radius: 6px; text-decoration: none; color: #0f172a;">
+            <span style="font-weight: 600;">Laser-Welded Segmented Diamond Concrete Blade</span>
+            <span style="font-family: var(--font-mono); font-weight: 700; color: var(--accent-orange);">₹1,899</span>
+          </a>
+          <a href="#product?id=a1b2c3d4-e5f6-4a1b-8c2d-3e4f5a6b7c8d" class="search-result-item" onclick="document.getElementById('search-dialog').close();" style="display: flex; align-items: center; justify-content: space-between; padding: 10px 14px; background: #f8fafc; border: 1px solid var(--border-subtle); border-radius: 6px; text-decoration: none; color: #0f172a;">
+            <span style="font-weight: 600;">Pro-Armor Vented Industrial Safety Helmet</span>
+            <span style="font-family: var(--font-mono); font-weight: 700; color: var(--accent-orange);">₹1,499</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </dialog>
+
+  <!-- 2. Slide-out Cart Drawer -->
+  <dialog id="cart-drawer" aria-label="Pro Tool Cart">
+    <div id="cart-drawer-content" style="height: 100%;">
+      <!-- Rendered dynamically by js/components/cartDrawer.js -->
+    </div>
+  </dialog>
+
+  <!-- 3. Auth Login / Register Modal Dialog -->
+  <dialog id="auth-dialog" aria-label="Contractor Authentication">
+    <div class="auth-box">
+      <button class="modal-close-btn" id="auth-close-btn" style="position: absolute; top: 16px; right: 16px; background: none; border: none; color: var(--text-muted); cursor: pointer;" aria-label="Close dialog">✕</button>
+      
+      <div style="text-align: center; margin-bottom: 20px;">
+        <h3 style="font-size: 1.5rem; color: #0f172a; font-family: var(--font-heading); font-weight: 800; margin-bottom: 4px;">Sign In</h3>
+        <p style="color: var(--text-secondary); font-size: 0.88rem;">Welcome back! Enter your details to continue.</p>
+      </div>
+
+      <!-- Social Login Buttons (Google, Facebook, Apple) -->
+      <div style="margin: 18px 0; padding: 14px; background: #f8fafc; border: 1px solid var(--border-subtle); border-radius: 8px;">
+        <div style="font-size: 0.72rem; font-family: var(--font-mono); color: var(--text-muted); font-weight: 700; text-align: center; margin-bottom: 10px; text-transform: uppercase; letter-spacing: 0.05em;">
+          — Quick Instant Social Login —
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 8px;">
+          <button type="button" class="btn-social-auth" id="btn-login-google" style="display: flex; align-items: center; justify-content: center; gap: 10px; width: 100%; padding: 10px 16px; border: 1.5px solid var(--border-medium); border-radius: 6px; background: #ffffff; color: #1f2937; font-weight: 700; font-size: 0.88rem; cursor: pointer; transition: all 0.2s ease;">
+            <svg width="18" height="18" viewBox="0 0 24 24">
+              <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+              <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+              <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/>
+              <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/>
+            </svg>
+            <span>Continue with Google</span>
+          </button>
+          
+          <button type="button" class="btn-social-auth" id="btn-login-facebook" style="display: flex; align-items: center; justify-content: center; gap: 10px; width: 100%; padding: 10px 16px; border: 1.5px solid #1877f2; border-radius: 6px; background: #1877f2; color: #ffffff; font-weight: 700; font-size: 0.88rem; cursor: pointer; transition: all 0.2s ease;">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="#ffffff">
+              <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+            </svg>
+            <span>Continue with Facebook</span>
+          </button>
+
+          <button type="button" class="btn-social-auth" id="btn-login-apple" style="display: flex; align-items: center; justify-content: center; gap: 10px; width: 100%; padding: 10px 16px; border: 1.5px solid #0f172a; border-radius: 6px; background: #0f172a; color: #ffffff; font-weight: 700; font-size: 0.88rem; cursor: pointer; transition: all 0.2s ease;">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="#ffffff">
+              <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M15.97 6.84c.65-.79 1.1-1.9 1-3-.95.04-2.1.64-2.78 1.44-.61.71-1.14 1.83-1 2.93 1.06.08 2.13-.58 2.78-1.37z"/>
+            </svg>
+            <span>Continue with Apple</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="auth-tabs">
+        <button type="button" class="auth-tab-btn active" data-mode="login">SIGN IN</button>
+        <button type="button" class="auth-tab-btn" data-mode="register">REGISTER NEW PRO</button>
+      </div>
+
+      <form id="auth-login-form">
+        <div id="register-fields" style="display: none;">
+          <div class="form-group" style="margin-bottom: 12px;">
+            <label class="form-label">Full Name *</label>
+            <input type="text" class="form-input" id="auth-name" placeholder="e.g. Marcus Vance">
+          </div>
+          <div class="form-group" style="margin-bottom: 12px;">
+            <label class="form-label">Company / Contractor Name</label>
+            <input type="text" class="form-input" id="auth-company" placeholder="e.g. Vance Framing LLC">
+          </div>
+        </div>
+
+        <div class="form-group" style="margin-bottom: 12px;">
+          <label class="form-label">Email Address *</label>
+          <input type="email" class="form-input" id="auth-email" required placeholder="name@company.com">
+        </div>
+
+        <div class="form-group" style="margin-bottom: 18px;">
+          <label class="form-label">Password *</label>
+          <input type="password" class="form-input" id="auth-password" required placeholder="••••••••">
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-block btn-lg" id="btn-auth-submit">
+          SIGN IN
+        </button>
+      </form>
+    </div>
+  </dialog>
+
+  <!-- Comprehensive Global Footer (Light Mode & No Warranty) -->
+  <footer class="site-footer" style="background: #f1f5f9; border-top: 1px solid var(--border-medium); padding: 70px 0 40px 0; color: #0f172a;">
+    <div class="container">
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 40px; margin-bottom: 50px;">
+        <!-- Brand Summary -->
+        <div style="display: flex; flex-direction: column; gap: 16px;">
+          <div class="brand-logo">
+            <div class="logo-text-group">
+              <div class="logo-title">TOUCH<span>POWER</span></div>
+              <div class="logo-tagline">FIELD-TESTED PRO GEAR</div>
+            </div>
+          </div>
+          <p style="font-size: 0.88rem; color: #475569; line-height: 1.6;">
+            Official gear store by TouchPower Vlogs. We field-test top tools from industry leaders across real-world commercial construction, framing, coring, and demolition.
+          </p>
+          <!-- Official YouTube Channel Badge in Footer -->
+          <a href="https://www.youtube.com/@TOUCHPOWERVLOGS" target="_blank" rel="noopener noreferrer" class="youtube-channel-pill" style="display: inline-flex; align-items: center; gap: 8px; background: rgba(239, 68, 68, 0.08); border: 1px solid rgba(239, 68, 68, 0.3); padding: 8px 14px; border-radius: 999px; text-decoration: none; color: #b91c1c; font-family: var(--font-mono); font-size: 0.8rem; font-weight: 700; transition: all 0.2s ease;">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="#FF0000">
+              <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+            </svg>
+            <span>@TOUCHPOWERVLOGS</span>
+          </a>
+        </div>
+
+        <!-- Categories -->
+        <div>
+          <h4 style="font-size: 0.95rem; color: #0f172a; margin-bottom: 18px; letter-spacing: 0.05em;">CATEGORIES</h4>
+          <ul style="list-style: none; display: flex; flex-direction: column; gap: 10px; font-size: 0.88rem; color: #475569;">
+            <li><a href="#catalog?category=machines" style="color: #334155;">Cordless Machines</a></li>
+            <li><a href="#catalog?category=blades" style="color: #334155;">Diamond & Carbide Blades</a></li>
+            <li><a href="#catalog?category=bits" style="color: #334155;">ShockWave Impact Bits</a></li>
+            <li><a href="#catalog?category=safety-guards" style="color: #334155;">OSHA Silica Safety Guards</a></li>
+            <li><a href="#catalog" style="color: #334155;">All Commercial Fleet Tools</a></li>
+          </ul>
+        </div>
+
+        <!-- Pro Services (No Warranty) -->
+        <div>
+          <h4 style="font-size: 0.95rem; color: #0f172a; margin-bottom: 18px; letter-spacing: 0.05em;">COMMUNITY & SERVICES</h4>
+          <ul style="list-style: none; display: flex; flex-direction: column; gap: 10px; font-size: 0.88rem; color: #475569;">
+            <li><a href="#wishlist" style="color: #334155;">Saved Hardware & Tools</a></li>
+            <li><a href="#tracking" style="color: #334155;">Real-Time Freight Tracking</a></li>
+            <li><a href="https://www.youtube.com/@TOUCHPOWERVLOGS" target="_blank" rel="noopener noreferrer" style="color: #ef4444; font-weight: 700;">▶ YouTube Jobsite Vlogs ↗</a></li>
+            <li><a href="https://www.instagram.com/touc_hpower_official?stkn=MWY4c2xkdnZhbXdvbQ==" target="_blank" rel="noopener noreferrer" style="color: #e1306c; font-weight: 700;">📸 Instagram: @touc_hpower_official ↗</a></li>
+          </ul>
+        </div>
+
+        <!-- Trust & Certified Standards -->
+        <div>
+          <h4 style="font-size: 0.95rem; color: #0f172a; margin-bottom: 18px; letter-spacing: 0.05em;">CERTIFIED STANDARDS</h4>
+          <div style="display: flex; flex-direction: column; gap: 10px; font-size: 0.82rem; color: #475569;">
+            <div style="display: flex; align-items: center; gap: 8px;">
+              <span style="color: var(--accent-orange); font-weight: 800;">✓</span> OSHA 29 CFR 1926.1153 Table 1 Compliant
+            </div>
+            <div style="display: flex; align-items: center; gap: 8px;">
+              <span style="color: var(--accent-orange); font-weight: 800;">✓</span> ANSI B7.1 Grinding Safety Certified
+            </div>
+            <div style="display: flex; align-items: center; gap: 8px;">
+              <span style="color: var(--accent-orange); font-weight: 800;">✓</span> ISO 9001 Heavy Industry Manufacturing
+            </div>
+            <div style="display: flex; align-items: center; gap: 8px;">
+              <span style="color: var(--accent-orange); font-weight: 800;">✓</span> UL / CSA Listed Commercial Grade
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bottom Legal, Payment Badges & Discrete Admin Access Link -->
+      <div style="padding-top: 30px; border-top: 1px solid var(--border-medium); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 20px; font-family: var(--font-mono); font-size: 0.78rem; color: #64748b;">
+        <div>
+          © 2026 TouchPower Vlogs Inc. All rights reserved. Field-Tested Pro Hardware.
+        </div>
+        <div style="display: flex; gap: 16px; align-items: center;">
+          <span>🔒 256-Bit SSL</span>
+          <span>💳 UPI / RUPAY / CARD</span>
+          <span>🏦 NET BANKING</span>
+          <!-- Only Admin option on entire website, positioned in footer -->
+          <a href="#admin" id="footer-admin-login-link" class="footer-admin-btn" title="TouchPower Admin Login & Database Console">
+            <span class="footer-admin-dot"></span>
+            <span>⚙️ Admin Login</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Mobile Bottom Quick Navigation Bar -->
+  <nav class="mobile-bottom-bar" aria-label="Mobile Bottom Bar">
+    <a href="#home" class="mobile-nav-item active">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+      </svg>
+      <span>Home</span>
+    </a>
+
+    <a href="#catalog" class="mobile-nav-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+      </svg>
+      <span>Catalog</span>
+    </a>
+
+    <a href="#tracking" class="mobile-nav-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <circle cx="12" cy="12" r="10"></circle>
+        <polyline points="12 6 12 12 16 14"></polyline>
+      </svg>
+      <span>Tracking</span>
+    </a>
+
+    <a href="#cart" class="mobile-nav-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+        <line x1="3" y1="6" x2="21" y2="6"></line>
+        <path d="M16 10a4 4 0 0 1-8 0"></path>
+      </svg>
+      <span class="mobile-nav-badge" id="mobile-cart-badge">1</span>
+      <span>Cart</span>
+    </a>
+
+    <a href="#account" class="mobile-nav-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+        <circle cx="12" cy="7" r="4"></circle>
+      </svg>
+      <span>Account</span>
+    </a>
+  </nav>
+
+  <!-- TouchPower AI Commercial Assistant Root -->
+  <div id="ai-assistant-root"></div>
+
+  <!-- Module Entrypoint Script -->
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>

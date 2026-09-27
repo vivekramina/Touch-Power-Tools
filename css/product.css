@@ -1,0 +1,106 @@
+/* ============================================================================
+   TouchPower™ - Product Detail Page (PDP) Styles
+   Light Mode Theme: Crisp white gallery, specs table, trust badges,
+   and YouTube video embed container.
+   ZERO warranty mentions.
+   ============================================================================ */
+
+.pdp-thumb-btn {
+  width: 68px;
+  height: 68px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(12px);
+  border: 2px solid rgba(226, 232, 240, 0.9);
+  padding: 6px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.25s ease;
+  box-shadow: 0 2px 6px rgba(15, 23, 42, 0.04);
+}
+
+.pdp-thumb-btn img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  transition: transform 0.2s ease;
+}
+
+.pdp-thumb-btn:hover {
+  border-color: var(--accent-orange);
+  transform: translateY(-2px);
+}
+
+.pdp-thumb-btn:hover img {
+  transform: scale(1.08);
+}
+
+.pdp-thumb-btn.active {
+  border-color: var(--accent-orange);
+  background: rgba(255, 255, 255, 0.98);
+  box-shadow: 0 0 16px rgba(234, 88, 12, 0.35);
+}
+
+.pdp-main-image-frame {
+  background: #ffffff !important;
+  border: 1px solid rgba(226, 232, 240, 0.95) !important;
+  border-radius: 12px !important;
+  box-shadow: 0 12px 32px -6px rgba(15, 23, 42, 0.08) !important;
+  transform: translateZ(0);
+}
+
+.commitment-badge-box {
+  background: rgba(255, 255, 255, 0.75) !important;
+  backdrop-filter: blur(12px) !important;
+  border: 1px solid rgba(234, 88, 12, 0.35) !important;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  border-radius: 8px;
+  box-shadow: 0 4px 14px rgba(15, 23, 42, 0.04);
+}
+
+.commitment-badge-box:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(234, 88, 12, 0.18);
+  background: rgba(255, 255, 255, 0.95) !important;
+}
+
+/* Specs Table */
+.specs-table tr td {
+  padding: 11px 0;
+}
+
+.specs-table tr:hover td {
+  background: rgba(15, 23, 42, 0.02);
+}
+
+/* Responsive adjustments */
+@media (max-width: 1100px) {
+  .pdp-main-grid {
+    grid-template-columns: 1fr 1fr !important;
+  }
+  .pdp-sidebar-column {
+    grid-column: span 2;
+  }
+}
+
+@media (max-width: 768px) {
+  .pdp-main-grid {
+    grid-template-columns: 1fr !important;
+  }
+  .pdp-sidebar-column {
+    grid-column: span 1;
+  }
+  .pdp-gallery-column {
+    flex-direction: column-reverse !important;
+  }
+  .pdp-thumbnails-strip {
+    flex-direction: row !important;
+    width: 100% !important;
+    overflow-x: auto;
+  }
+  .pdp-details-tabs-grid {
+    grid-template-columns: 1fr !important;
+  }
+}
