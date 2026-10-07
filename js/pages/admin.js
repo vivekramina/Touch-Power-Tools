@@ -10,6 +10,8 @@
 
 import { db, SUPABASE_DEFAULT_CONFIG } from '../supabase.js';
 import { store } from '../store.js';
+import { renderDwmMlTab, attachDwmMlEvents } from './adminDwmTab.js';
+import { renderRegressionTab, attachRegressionEvents } from './adminRegressionTab.js';
 
 export async function renderAdminPage() {
   const user = store.user;
@@ -43,14 +45,23 @@ export async function renderAdminPage() {
     `;
   }
 
-  // Load live data from Supabase backend
-  const telemetry = await db.checkLiveStatus();
-  const products = await db.getProducts();
-  const orders = await db.getOrders();
+  // Load live data from Supabase backend & DWH ML services
+  const [telemetry, products, orders, dwhOverview, nbEval, salesPrediction, regressionData, decisionTreeData] = await Promise.all([
+    db.checkLiveStatus(),
+    db.getProducts(),
+    db.getOrders(),
+    db.getDwhOverview(),
+    db.getNaiveBayesEvaluation(),
+    db.predictSales(),
+    db.getRegressionEvaluation(),
+    db.getDecisionTreeEvaluation()
+  ]);
   const config = db.config;
 
   const totalRevenue = orders.reduce((sum, o) => sum + parseFloat(o.total_amount || 0), 0);
   const lowStockCount = products.filter((p) => (p.stock_count || 0) < 30).length;
+  const dwmMlTabHtml = renderDwmMlTab(dwhOverview, nbEval, salesPrediction, orders, regressionData, decisionTreeData);
+  const regressionTabHtml = renderRegressionTab(regressionData, products);
 
   return `
     <div class="page-admin-dashboard" style="background: var(--bg-dark);">
@@ -90,6 +101,12 @@ export async function renderAdminPage() {
           <div style="display: flex; flex-direction: column; gap: 6px;">
             <button class="admin-nav-tab active" data-tab="tab-overview">
               📊 Metrics Overview
+            </button>
+            <button class="admin-nav-tab" data-tab="tab-dwm-ml" style="background: rgba(245, 158, 11, 0.08); border: 1px solid rgba(245, 158, 11, 0.35); font-weight: 700; color: var(--accent-orange);">
+              📊 DWM Sales & Dispatch Intelligence
+            </button>
+            <button class="admin-nav-tab" data-tab="tab-regression" style="background: rgba(37, 99, 235, 0.08); border: 1px solid rgba(37, 99, 235, 0.35); font-weight: 700; color: #2563eb;">
+              📈 Sales &amp; Demand Forecast
             </button>
             <button class="admin-nav-tab" data-tab="tab-products">
               🔨 Products Management (${products.length})
@@ -548,6 +565,14 @@ export async function renderAdminPage() {
             </div>
           </div>
 
+          <!-- TAB 6: DATA WAREHOUSING (DWM) SALES & DISPATCH INTELLIGENCE ANALYTICS -->
+          ${dwmMlTabHtml}
+
+          <!-- TAB 7: DEDICATED REGRESSION ANALYSIS STUDIO (SLR & MLR) -->
+          <div class="admin-tab-pane" id="tab-regression" style="display: none;">
+            ${regressionTabHtml}
+          </div>
+
         </main>
       </div>
 
@@ -669,6 +694,12 @@ export function attachAdminEvents() {
       if (targetPane) targetPane.style.display = 'block';
     });
   });
+
+  // Attach DWM & Predictive Dispatch ML Events
+  attachDwmMlEvents();
+
+  // Attach Dedicated Regression Studio (SLR & MLR) Events
+  attachRegressionEvents();
 
   // 1-Click Order Status Dropdown System with Live Cloud Persistence
   document.querySelectorAll('.admin-status-select').forEach((select) => {

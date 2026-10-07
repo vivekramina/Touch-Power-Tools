@@ -302,8 +302,8 @@ export const INITIAL_PRODUCTS = [
     description: 'Heavy-duty universal 5" surface grinding dust shroud with spring-loaded flexible brush ring and flush-edge flip cover for grinding right up to walls and curbs.',
     stock_count: 58,
     image_urls: [
-      'assets/images/cat_safety_guards.png',
-      'assets/images/mockup_pdp.png'
+      'assets/images/safety/safety_dust_shroud_pro.jpg',
+      'assets/images/cat_safety_guards.png'
     ],
     youtube_url: 'https://www.youtube.com/watch?v=kY3P6R7cE_w',
     brand: 'TOUCHPOWER',
@@ -331,8 +331,8 @@ export const INITIAL_PRODUCTS = [
     description: 'Transparent polycarbonate cut-off saw containment guard with multi-directional vacuum manifold. Captures over 95% of airborne silica particulates during masonry saw cuts.',
     stock_count: 34,
     image_urls: [
-      'assets/images/cat_safety_guards.png',
-      'assets/images/mockup_pdp.png'
+      'assets/images/safety/safety_dust_shroud_pro.jpg',
+      'assets/images/cat_safety_guards.png'
     ],
     youtube_url: 'https://www.youtube.com/watch?v=0h9Vp0d5l_U',
     brand: 'TOUCHPOWER',
@@ -450,8 +450,8 @@ export const INITIAL_PRODUCTS = [
     description: 'European standard steel toe industrial safety shoes with bulletproof Kevlar anti-puncture midsole, breathable flyknit upper, and oil/slip-resistant shock absorption outsole.',
     stock_count: 75,
     image_urls: [
-      'assets/images/cat_safety_guards.png',
-      'assets/images/mockup_pdp.png'
+      'assets/images/safety/safety_shoes_pro.jpg',
+      'assets/images/cat_safety_guards.png'
     ],
     youtube_url: 'https://www.youtube.com/watch?v=B8x0Kq7tY1g',
     brand: 'TITAN-SHIELD',
@@ -500,6 +500,96 @@ export const INITIAL_PRODUCTS = [
       'Hydrophobic anti-fog technology keeps lenses clear even when wearing respirators',
       'Ultra-lightweight 28g frame with flexible rubber-tipped temples',
       'Full wrap-around design protects brow and side angles without blind spots'
+    ]
+  },
+  {
+    id: 'c3d4e5f6-a1b2-4c3d-8e9f-012345678918',
+    name: 'Pro-Shield Auto-Darkening Welding Helmet & Face Shield',
+    category: 'Safety Guards',
+    price: 2899.00,
+    description: 'Commercial solar-powered auto-darkening welding helmet with 4 arc sensors, shade DIN 9-13 variable control, and 1/1/1/2 optical clarity for MIG, TIG, and stick welding.',
+    stock_count: 48,
+    image_urls: [
+      'assets/images/safety/safety_welding_helmet_pro.jpg',
+      'assets/images/cat_safety_guards.png'
+    ],
+    youtube_url: 'https://www.youtube.com/watch?v=kY3P6R7cE_w',
+    brand: 'PRO-SHIELD',
+    rating: 4.9,
+    reviews_count: 92,
+    contractor_location: 'Adani Hazira Port Fabrication Yard',
+    specs: {
+      'Viewing Area': '100 x 67 mm Extra Large',
+      'Switching Time': '1/25,000s Light to Dark',
+      'Shade Range': 'DIN 4 (Light) / DIN 9-13 (Dark)',
+      'Sensors': '4 Independent Arc Sensors',
+      'Power': 'Solar Cells + Replaceable CR2450'
+    },
+    features: [
+      '1/1/1/2 Optical Clarity Rating reduces eye strain during long welding shifts',
+      'True Color technology provides natural color perception through lens',
+      'External grind mode switch allows fast transition without taking helmet off',
+      'Ergonomic 3-point halo headgear distributes weight evenly across head'
+    ]
+  },
+  {
+    id: 'c3d4e5f6-a1b2-4c3d-8e9f-012345678919',
+    name: 'PureAir Dual-Cartridge Half-Mask Industrial Respirator',
+    category: 'Safety Guards',
+    price: 1899.00,
+    description: 'NIOSH-certified industrial silicone half-mask particulate respirator with dual replaceable P100 organic vapor gas filter cartridges. Resists silica, paint vapors, and acid gases.',
+    stock_count: 88,
+    image_urls: [
+      'assets/images/safety/safety_respirator_pro.jpg',
+      'assets/images/cat_safety_guards.png'
+    ],
+    youtube_url: 'https://www.youtube.com/watch?v=0h9Vp0d5l_U',
+    brand: 'PURE-AIR',
+    rating: 4.9,
+    reviews_count: 114,
+    contractor_location: 'Delhi-NCR Underground Metro Coring',
+    specs: {
+      'Standard': 'NIOSH 42 CFR 84 Approved P100/OV',
+      'Material': 'Hypoallergenic Medical-Grade Silicone',
+      'Harness': '4-Point Drop-Down Cradle',
+      'Filter Connection': 'Bayonet Twin Filter',
+      'Weight': '180g (Mask Body)'
+    },
+    features: [
+      'P100 efficiency captures 99.97% of airborne toxic particulates and silica dust',
+      'Medical-grade silicone facepiece seals comfortably against face without pressure points',
+      'Cool Flow exhalation valve directs moisture and exhaled heat downward',
+      'Swept-back filter cartridge profile preserves panoramic downward sightlines'
+    ]
+  },
+  {
+    id: 'c3d4e5f6-a1b2-4c3d-8e9f-012345678920',
+    name: 'SoundLock Pro ANSI 28dB Noise-Cancelling Industrial Earmuffs',
+    category: 'Safety Guards',
+    price: 1199.00,
+    description: 'High-attenuation industrial hearing protection earmuffs with certified 28dB Noise Reduction Rating (NRR). Built with twin headband design and soft acoustic foam ear cushions.',
+    stock_count: 110,
+    image_urls: [
+      'assets/images/safety/safety_earmuffs_pro.jpg',
+      'assets/images/cat_safety_guards.png'
+    ],
+    youtube_url: 'https://www.youtube.com/watch?v=rW_kX4d4x_0',
+    brand: 'SOUND-LOCK',
+    rating: 4.8,
+    reviews_count: 78,
+    contractor_location: 'Bengaluru Aircraft Engine Testing Bay',
+    specs: {
+      'NRR Rating': '28 dB (ANSI S3.19 Tested)',
+      'Band Type': 'Electrically Insulated Steel Wire',
+      'Ear Cushion': 'Dual-Layer Sound-Dampening Memory Foam',
+      'Weight': '265g',
+      'Certification': 'ANSI S3.19 & CE EN352-1'
+    },
+    features: [
+      '28dB NRR protects eardrums against jackhammers, demolition saws, and routers',
+      'Vented wire headband reduces heat buildup while providing consistent clamping force',
+      'Generous internal cup depth prevents pressure on outer ear cartilage',
+      'Replaceable hygiene kit cushions ensure long-term jobsite service life'
     ]
   },
 

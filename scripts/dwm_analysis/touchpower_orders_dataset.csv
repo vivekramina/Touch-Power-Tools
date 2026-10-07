@@ -1,0 +1,81 @@
+order_id,carrier,zone,weight_kg,items_count,value_tier,payment_method,priority,delivery_hours,actual_outcome,is_returned
+ORD-1001,TouchPower BlueDart Direct,Metro Corridor,3.2,1,Standard,Prepaid,Standard,22,On-Time,0
+ORD-1002,TouchPower BlueDart Direct,Metro Corridor,8.5,2,Standard,Prepaid,Standard,26,On-Time,0
+ORD-1003,TouchPower BlueDart Direct,Metro Corridor,14.0,4,Enterprise,Prepaid,High,28,On-Time,0
+ORD-1004,TouchPower BlueDart Direct,Metro Corridor,2.1,1,Economy,COD,Standard,24,On-Time,0
+ORD-1005,TouchPower BlueDart Direct,Metro Corridor,26.0,6,Enterprise,Prepaid,High,30,On-Time,0
+ORD-1006,TouchPower BlueDart Direct,Metro Corridor,4.8,2,Standard,Prepaid,Standard,23,On-Time,0
+ORD-1007,TouchPower BlueDart Direct,Metro Corridor,38.0,8,Enterprise,COD,Standard,74,Delayed,1
+ORD-1008,TouchPower BlueDart Direct,Expressway Transit,6.2,2,Standard,Prepaid,High,27,On-Time,0
+ORD-1009,TouchPower BlueDart Direct,Expressway Transit,12.5,3,Standard,Prepaid,Standard,29,On-Time,0
+ORD-1010,TouchPower BlueDart Direct,Expressway Transit,18.0,4,Enterprise,Prepaid,Standard,31,On-Time,0
+ORD-1011,TouchPower BlueDart Direct,Remote Jobsite,5.0,1,Standard,Prepaid,Emergency,32,On-Time,0
+ORD-1012,TouchPower BlueDart Direct,Remote Jobsite,22.0,5,Enterprise,COD,Standard,86,Delayed,1
+ORD-1013,TouchPower BlueDart Direct,Industrial Complex,9.0,2,Standard,Prepaid,Standard,24,On-Time,0
+ORD-1014,TouchPower BlueDart Direct,Industrial Complex,31.0,7,Enterprise,Prepaid,High,28,On-Time,0
+ORD-1015,FedEx Heavy Cargo,Metro Corridor,35.0,4,Enterprise,Prepaid,Standard,34,On-Time,0
+ORD-1016,FedEx Heavy Cargo,Metro Corridor,52.0,8,Enterprise,Prepaid,High,36,On-Time,0
+ORD-1017,FedEx Heavy Cargo,Metro Corridor,18.0,2,Standard,Prepaid,Standard,30,On-Time,0
+ORD-1018,FedEx Heavy Cargo,Expressway Transit,44.0,6,Enterprise,Prepaid,Standard,38,On-Time,0
+ORD-1019,FedEx Heavy Cargo,Expressway Transit,68.0,10,Enterprise,Prepaid,High,40,On-Time,0
+ORD-1020,FedEx Heavy Cargo,Expressway Transit,85.0,12,Enterprise,COD,Standard,92,Delayed,1
+ORD-1021,FedEx Heavy Cargo,Remote Jobsite,40.0,5,Enterprise,COD,Standard,96,Delayed,1
+ORD-1022,FedEx Heavy Cargo,Remote Jobsite,32.0,3,Enterprise,Prepaid,High,42,On-Time,0
+ORD-1023,FedEx Heavy Cargo,Industrial Complex,60.0,8,Enterprise,Prepaid,Standard,38,On-Time,0
+ORD-1024,FedEx Heavy Cargo,Industrial Complex,92.0,15,Enterprise,Prepaid,High,44,On-Time,0
+ORD-1025,FedEx Heavy Cargo,Industrial Complex,25.0,3,Standard,Prepaid,Standard,32,On-Time,0
+ORD-1026,ProFreight Express,Metro Corridor,2.5,1,Economy,Prepaid,Emergency,14,On-Time,0
+ORD-1027,ProFreight Express,Metro Corridor,4.0,2,Standard,Prepaid,Emergency,16,On-Time,0
+ORD-1028,ProFreight Express,Metro Corridor,7.8,3,Standard,Prepaid,High,18,On-Time,0
+ORD-1029,ProFreight Express,Metro Corridor,1.5,1,Economy,Prepaid,Standard,19,On-Time,0
+ORD-1030,ProFreight Express,Expressway Transit,6.0,2,Standard,Prepaid,Emergency,22,On-Time,0
+ORD-1031,ProFreight Express,Expressway Transit,11.0,3,Standard,Prepaid,High,25,On-Time,0
+ORD-1032,ProFreight Express,Remote Jobsite,8.0,2,Standard,Prepaid,Emergency,28,On-Time,0
+ORD-1033,ProFreight Express,Remote Jobsite,16.0,4,Enterprise,COD,Standard,80,Delayed,1
+ORD-1034,ProFreight Express,Industrial Complex,12.0,3,Standard,Prepaid,High,20,On-Time,0
+ORD-1035,UPS Jobsite Direct,Metro Corridor,5.5,2,Standard,Prepaid,Standard,24,On-Time,0
+ORD-1036,UPS Jobsite Direct,Metro Corridor,15.0,4,Enterprise,Prepaid,Standard,28,On-Time,0
+ORD-1037,UPS Jobsite Direct,Metro Corridor,3.0,1,Economy,Prepaid,Standard,22,On-Time,0
+ORD-1038,UPS Jobsite Direct,Expressway Transit,9.0,3,Standard,Prepaid,Standard,29,On-Time,0
+ORD-1039,UPS Jobsite Direct,Expressway Transit,24.0,5,Enterprise,COD,Standard,78,Delayed,1
+ORD-1040,UPS Jobsite Direct,Remote Jobsite,7.0,2,Standard,COD,Standard,82,Delayed,1
+ORD-1041,UPS Jobsite Direct,Remote Jobsite,19.0,4,Enterprise,COD,Standard,88,Delayed,1
+ORD-1042,UPS Jobsite Direct,Remote Jobsite,4.5,1,Economy,Prepaid,High,32,On-Time,0
+ORD-1043,UPS Jobsite Direct,Industrial Complex,14.0,3,Standard,Prepaid,Standard,27,On-Time,0
+ORD-1044,UPS Jobsite Direct,Industrial Complex,28.0,6,Enterprise,Prepaid,High,30,On-Time,0
+ORD-1045,TouchPower BlueDart Direct,Metro Corridor,1.8,1,Economy,Prepaid,Standard,20,On-Time,0
+ORD-1046,TouchPower BlueDart Direct,Metro Corridor,6.4,2,Standard,Prepaid,High,22,On-Time,0
+ORD-1047,TouchPower BlueDart Direct,Expressway Transit,15.2,3,Enterprise,Prepaid,High,26,On-Time,0
+ORD-1048,TouchPower BlueDart Direct,Remote Jobsite,3.5,1,Economy,COD,Standard,70,Delayed,1
+ORD-1049,FedEx Heavy Cargo,Metro Corridor,28.0,3,Enterprise,Prepaid,Standard,33,On-Time,0
+ORD-1050,FedEx Heavy Cargo,Expressway Transit,48.0,6,Enterprise,Prepaid,High,37,On-Time,0
+ORD-1051,FedEx Heavy Cargo,Remote Jobsite,55.0,7,Enterprise,COD,Standard,90,Delayed,1
+ORD-1052,FedEx Heavy Cargo,Industrial Complex,72.0,9,Enterprise,Prepaid,High,41,On-Time,0
+ORD-1053,ProFreight Express,Metro Corridor,3.1,1,Economy,Prepaid,Emergency,15,On-Time,0
+ORD-1054,ProFreight Express,Expressway Transit,8.2,2,Standard,Prepaid,High,21,On-Time,0
+ORD-1055,ProFreight Express,Remote Jobsite,4.8,1,Standard,Prepaid,Emergency,24,On-Time,0
+ORD-1056,ProFreight Express,Remote Jobsite,25.0,5,Enterprise,COD,Standard,84,Delayed,1
+ORD-1057,UPS Jobsite Direct,Metro Corridor,11.2,2,Standard,Prepaid,Standard,26,On-Time,0
+ORD-1058,UPS Jobsite Direct,Expressway Transit,16.5,4,Enterprise,Prepaid,High,28,On-Time,0
+ORD-1059,UPS Jobsite Direct,Remote Jobsite,29.0,6,Enterprise,COD,Standard,92,Delayed,1
+ORD-1060,UPS Jobsite Direct,Industrial Complex,8.5,2,Standard,Prepaid,Standard,25,On-Time,0
+ORD-2001,TouchPower BlueDart Direct,Metro Corridor,3.5,1,Standard,Prepaid,Standard,21,On-Time,0
+ORD-2002,TouchPower BlueDart Direct,Metro Corridor,12.0,3,Enterprise,Prepaid,High,25,On-Time,0
+ORD-2003,TouchPower BlueDart Direct,Expressway Transit,7.2,2,Standard,Prepaid,Standard,26,On-Time,0
+ORD-2004,TouchPower BlueDart Direct,Remote Jobsite,35.0,8,Enterprise,COD,Standard,94,Delayed,1
+ORD-2005,FedEx Heavy Cargo,Metro Corridor,42.0,5,Enterprise,Prepaid,High,35,On-Time,0
+ORD-2006,FedEx Heavy Cargo,Expressway Transit,30.0,4,Enterprise,Prepaid,Standard,36,On-Time,0
+ORD-2007,FedEx Heavy Cargo,Remote Jobsite,78.0,10,Enterprise,COD,Standard,98,Delayed,1
+ORD-2008,FedEx Heavy Cargo,Industrial Complex,50.0,6,Enterprise,Prepaid,High,38,On-Time,0
+ORD-2009,ProFreight Express,Metro Corridor,2.0,1,Economy,Prepaid,Emergency,14,On-Time,0
+ORD-2010,ProFreight Express,Expressway Transit,5.5,2,Standard,Prepaid,Emergency,19,On-Time,0
+ORD-2011,ProFreight Express,Remote Jobsite,22.0,5,Enterprise,COD,Standard,86,Delayed,1
+ORD-2012,ProFreight Express,Industrial Complex,9.5,2,Standard,Prepaid,High,21,On-Time,0
+ORD-2013,UPS Jobsite Direct,Metro Corridor,6.0,2,Standard,Prepaid,Standard,23,On-Time,0
+ORD-2014,UPS Jobsite Direct,Expressway Transit,21.0,4,Enterprise,COD,Standard,79,Delayed,1
+ORD-2015,UPS Jobsite Direct,Remote Jobsite,18.0,3,Enterprise,COD,Standard,85,Delayed,1
+ORD-2016,UPS Jobsite Direct,Industrial Complex,10.0,2,Standard,Prepaid,High,26,On-Time,0
+ORD-2017,TouchPower BlueDart Direct,Metro Corridor,4.2,1,Standard,Prepaid,High,22,On-Time,0
+ORD-2018,FedEx Heavy Cargo,Industrial Complex,65.0,8,Enterprise,Prepaid,High,40,On-Time,0
+ORD-2019,ProFreight Express,Metro Corridor,3.8,1,Standard,Prepaid,Emergency,16,On-Time,0
+ORD-2020,UPS Jobsite Direct,Remote Jobsite,12.0,2,Standard,COD,Standard,84,Delayed,1

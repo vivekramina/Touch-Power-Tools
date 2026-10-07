@@ -1,0 +1,451 @@
+{
+  "module": "Attribute Relevance & Decision Tree",
+  "target": "Reorder_Urgency",
+  "total_records": 32,
+  "base_entropy": 1.4943,
+  "base_gini": 0.623,
+  "ranked_attributes": [
+    {
+      "attribute": "Stock_Level",
+      "information_gain": 0.8749,
+      "split_info": 1.5671,
+      "gain_ratio": 0.5583,
+      "gini_reduction": 0.3239,
+      "distinct_values": [
+        "High (>40)",
+        "Medium (16-40)",
+        "Low (<=15)"
+      ],
+      "rank": 1,
+      "relevance": "Highly Informative (Primary Decision Driver)"
+    },
+    {
+      "attribute": "Days_Of_Supply",
+      "information_gain": 0.6496,
+      "split_info": 0.9284,
+      "gain_ratio": 0.6998,
+      "gini_reduction": 0.2259,
+      "distinct_values": [
+        "Warning (15-35d)",
+        "Critical (<15d)"
+      ],
+      "rank": 2,
+      "relevance": "Highly Informative (Primary Decision Driver)"
+    },
+    {
+      "attribute": "Price_Tier",
+      "information_gain": 0.3279,
+      "split_info": 1.4153,
+      "gain_ratio": 0.2317,
+      "gini_reduction": 0.1486,
+      "distinct_values": [
+        "Standard (\u20b92k-\u20b910k)",
+        "Enterprise (>\u20b910k)",
+        "Economy (<\u20b92k)"
+      ],
+      "rank": 3,
+      "relevance": "Moderately Informative"
+    },
+    {
+      "attribute": "Sales_Velocity",
+      "information_gain": 0.2749,
+      "split_info": 1.4943,
+      "gain_ratio": 0.184,
+      "gini_reduction": 0.1168,
+      "distinct_values": [
+        "Medium (40-80/mo)",
+        "Moderate (<40/mo)",
+        "High (>80/mo)"
+      ],
+      "rank": 4,
+      "relevance": "Moderately Informative"
+    },
+    {
+      "attribute": "Lead_Time",
+      "information_gain": 0.2224,
+      "split_info": 0.6962,
+      "gain_ratio": 0.3195,
+      "gini_reduction": 0.087,
+      "distinct_values": [
+        "Fast (<8d)",
+        "Long (>=8d)"
+      ],
+      "rank": 5,
+      "relevance": "Moderately Informative"
+    },
+    {
+      "attribute": "Category",
+      "information_gain": 0.0529,
+      "split_info": 2.0,
+      "gain_ratio": 0.0265,
+      "gini_reduction": 0.0215,
+      "distinct_values": [
+        "Machines",
+        "Blades",
+        "Bits",
+        "Safety Guards"
+      ],
+      "rank": 6,
+      "relevance": "Low Relevance / Redundant"
+    }
+  ],
+  "tree_structure": {
+    "type": "decision_node",
+    "attribute": "Stock_Level",
+    "distribution": {
+      "Optimal Buffer": 16,
+      "Restock Warning": 9,
+      "Critical Urgent": 7
+    },
+    "branches": {
+      "High (>40)": {
+        "type": "leaf",
+        "prediction": "Optimal Buffer",
+        "distribution": {
+          "Optimal Buffer": 10
+        }
+      },
+      "Low (<=15)": {
+        "type": "decision_node",
+        "attribute": "Days_Of_Supply",
+        "distribution": {
+          "Critical Urgent": 7,
+          "Restock Warning": 2
+        },
+        "branches": {
+          "Critical (<15d)": {
+            "type": "leaf",
+            "prediction": "Critical Urgent",
+            "distribution": {
+              "Critical Urgent": 7
+            }
+          },
+          "Warning (15-35d)": {
+            "type": "leaf",
+            "prediction": "Restock Warning",
+            "distribution": {
+              "Restock Warning": 2
+            }
+          }
+        }
+      },
+      "Medium (16-40)": {
+        "type": "decision_node",
+        "attribute": "Days_Of_Supply",
+        "distribution": {
+          "Restock Warning": 7,
+          "Optimal Buffer": 6
+        },
+        "branches": {
+          "Critical (<15d)": {
+            "type": "leaf",
+            "prediction": "Restock Warning",
+            "distribution": {
+              "Restock Warning": 4
+            }
+          },
+          "Warning (15-35d)": {
+            "type": "decision_node",
+            "attribute": "Price_Tier",
+            "distribution": {
+              "Restock Warning": 3,
+              "Optimal Buffer": 6
+            },
+            "branches": {
+              "Economy (<\u20b92k)": {
+                "type": "leaf",
+                "prediction": "Optimal Buffer",
+                "distribution": {
+                  "Optimal Buffer": 3
+                }
+              },
+              "Enterprise (>\u20b910k)": {
+                "type": "leaf",
+                "prediction": "Restock Warning",
+                "distribution": {
+                  "Restock Warning": 1
+                }
+              },
+              "Standard (\u20b92k-\u20b910k)": {
+                "type": "leaf",
+                "prediction": "Optimal Buffer",
+                "distribution": {
+                  "Optimal Buffer": 3,
+                  "Restock Warning": 2
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "rules": [
+    "IF (Stock_Level == 'High (>40)') THEN Reorder_Urgency = 'Optimal Buffer'",
+    "IF (Stock_Level == 'Low (<=15)') AND (Days_Of_Supply == 'Critical (<15d)') THEN Reorder_Urgency = 'Critical Urgent'",
+    "IF (Stock_Level == 'Low (<=15)') AND (Days_Of_Supply == 'Warning (15-35d)') THEN Reorder_Urgency = 'Restock Warning'",
+    "IF (Stock_Level == 'Medium (16-40)') AND (Days_Of_Supply == 'Critical (<15d)') THEN Reorder_Urgency = 'Restock Warning'",
+    "IF (Stock_Level == 'Medium (16-40)') AND (Days_Of_Supply == 'Warning (15-35d)') AND (Price_Tier == 'Economy (<\u20b92k)') THEN Reorder_Urgency = 'Optimal Buffer'",
+    "IF (Stock_Level == 'Medium (16-40)') AND (Days_Of_Supply == 'Warning (15-35d)') AND (Price_Tier == 'Enterprise (>\u20b910k)') THEN Reorder_Urgency = 'Restock Warning'",
+    "IF (Stock_Level == 'Medium (16-40)') AND (Days_Of_Supply == 'Warning (15-35d)') AND (Price_Tier == 'Standard (\u20b92k-\u20b910k)') THEN Reorder_Urgency = 'Optimal Buffer'"
+  ],
+  "accuracy_pct": 93.75,
+  "test_evaluations": [
+    {
+      "name": "TouchPower X-Pro Rotary Hammer Drill",
+      "days_of_supply": "Warning (15-35d)",
+      "stock_level": "High (>40)",
+      "actual_urgency": "Optimal Buffer",
+      "predicted_urgency": "Optimal Buffer",
+      "correct": true
+    },
+    {
+      "name": "Volt Compact Industrial Miter Saw 10-Inch",
+      "days_of_supply": "Warning (15-35d)",
+      "stock_level": "Medium (16-40)",
+      "actual_urgency": "Restock Warning",
+      "predicted_urgency": "Restock Warning",
+      "correct": true
+    },
+    {
+      "name": "Sharp-Edge Heavy Duty Angle Grinder 850W",
+      "days_of_supply": "Critical (<15d)",
+      "stock_level": "Low (<=15)",
+      "actual_urgency": "Critical Urgent",
+      "predicted_urgency": "Critical Urgent",
+      "correct": true
+    },
+    {
+      "name": "Volt Precision Marble Cutter 125mm 1400W",
+      "days_of_supply": "Warning (15-35d)",
+      "stock_level": "Medium (16-40)",
+      "actual_urgency": "Optimal Buffer",
+      "predicted_urgency": "Optimal Buffer",
+      "correct": true
+    },
+    {
+      "name": "Titan Demolition Breaker Hex-30 1800W",
+      "days_of_supply": "Warning (15-35d)",
+      "stock_level": "Low (<=15)",
+      "actual_urgency": "Restock Warning",
+      "predicted_urgency": "Restock Warning",
+      "correct": true
+    },
+    {
+      "name": "Volt Variable Speed Jigsaw 710W",
+      "days_of_supply": "Warning (15-35d)",
+      "stock_level": "Medium (16-40)",
+      "actual_urgency": "Optimal Buffer",
+      "predicted_urgency": "Optimal Buffer",
+      "correct": true
+    },
+    {
+      "name": "Laser Precision Plunge Track Saw 1400W",
+      "days_of_supply": "Warning (15-35d)",
+      "stock_level": "Low (<=15)",
+      "actual_urgency": "Restock Warning",
+      "predicted_urgency": "Restock Warning",
+      "correct": true
+    },
+    {
+      "name": "ProCore Diamond Core Drill Rig 2200W",
+      "days_of_supply": "Critical (<15d)",
+      "stock_level": "Low (<=15)",
+      "actual_urgency": "Critical Urgent",
+      "predicted_urgency": "Critical Urgent",
+      "correct": true
+    },
+    {
+      "name": "Laser-Welded Segmented Diamond Blade 5-Inch",
+      "days_of_supply": "Warning (15-35d)",
+      "stock_level": "High (>40)",
+      "actual_urgency": "Optimal Buffer",
+      "predicted_urgency": "Optimal Buffer",
+      "correct": true
+    },
+    {
+      "name": "Continuous Rim Porcelain Tile Diamond Blade",
+      "days_of_supply": "Warning (15-35d)",
+      "stock_level": "High (>40)",
+      "actual_urgency": "Optimal Buffer",
+      "predicted_urgency": "Optimal Buffer",
+      "correct": true
+    },
+    {
+      "name": "Turbo Wave Granite & Masonry Blade 4.5-Inch",
+      "days_of_supply": "Critical (<15d)",
+      "stock_level": "Low (<=15)",
+      "actual_urgency": "Critical Urgent",
+      "predicted_urgency": "Critical Urgent",
+      "correct": true
+    },
+    {
+      "name": "Heavy Timber TCT Circular Saw Blade 40-Tooth",
+      "days_of_supply": "Warning (15-35d)",
+      "stock_level": "Medium (16-40)",
+      "actual_urgency": "Optimal Buffer",
+      "predicted_urgency": "Optimal Buffer",
+      "correct": true
+    },
+    {
+      "name": "Cast Iron & Metal Cutting Diamond Wheel",
+      "days_of_supply": "Critical (<15d)",
+      "stock_level": "Medium (16-40)",
+      "actual_urgency": "Restock Warning",
+      "predicted_urgency": "Restock Warning",
+      "correct": true
+    },
+    {
+      "name": "High Speed Stainless Steel Cut-Off Wheel Pack",
+      "days_of_supply": "Warning (15-35d)",
+      "stock_level": "High (>40)",
+      "actual_urgency": "Optimal Buffer",
+      "predicted_urgency": "Optimal Buffer",
+      "correct": true
+    },
+    {
+      "name": "Ultra-Thin Marble Slicing Blade 110mm",
+      "days_of_supply": "Critical (<15d)",
+      "stock_level": "Medium (16-40)",
+      "actual_urgency": "Restock Warning",
+      "predicted_urgency": "Restock Warning",
+      "correct": true
+    },
+    {
+      "name": "Laser Slotted Asphalt & Green Concrete Blade",
+      "days_of_supply": "Critical (<15d)",
+      "stock_level": "Low (<=15)",
+      "actual_urgency": "Critical Urgent",
+      "predicted_urgency": "Critical Urgent",
+      "correct": true
+    },
+    {
+      "name": "SDS-Plus Crosshead 4-Cutter Concrete Drill Bit",
+      "days_of_supply": "Warning (15-35d)",
+      "stock_level": "High (>40)",
+      "actual_urgency": "Optimal Buffer",
+      "predicted_urgency": "Optimal Buffer",
+      "correct": true
+    },
+    {
+      "name": "SDS-Max Heavy Duty Bull Point Chisel 400mm",
+      "days_of_supply": "Warning (15-35d)",
+      "stock_level": "Medium (16-40)",
+      "actual_urgency": "Optimal Buffer",
+      "predicted_urgency": "Optimal Buffer",
+      "correct": true
+    },
+    {
+      "name": "Industrial Cobalt HSS Drill Bit 19-Piece Set",
+      "days_of_supply": "Warning (15-35d)",
+      "stock_level": "Medium (16-40)",
+      "actual_urgency": "Restock Warning",
+      "predicted_urgency": "Optimal Buffer",
+      "correct": false
+    },
+    {
+      "name": "Diamond Vacuum Brazed Dry Tile Coring Bit 35mm",
+      "days_of_supply": "Warning (15-35d)",
+      "stock_level": "Medium (16-40)",
+      "actual_urgency": "Optimal Buffer",
+      "predicted_urgency": "Optimal Buffer",
+      "correct": true
+    },
+    {
+      "name": "Flat Spade Wood Boring Bit Set 6-Piece",
+      "days_of_supply": "Warning (15-35d)",
+      "stock_level": "High (>40)",
+      "actual_urgency": "Optimal Buffer",
+      "predicted_urgency": "Optimal Buffer",
+      "correct": true
+    },
+    {
+      "name": "Step Drill Bit Titanium Nitride 4-32mm",
+      "days_of_supply": "Critical (<15d)",
+      "stock_level": "Low (<=15)",
+      "actual_urgency": "Critical Urgent",
+      "predicted_urgency": "Critical Urgent",
+      "correct": true
+    },
+    {
+      "name": "Concrete Coring Core Bit Crown 102mm",
+      "days_of_supply": "Critical (<15d)",
+      "stock_level": "Low (<=15)",
+      "actual_urgency": "Critical Urgent",
+      "predicted_urgency": "Critical Urgent",
+      "correct": true
+    },
+    {
+      "name": "Magnetic Impact Screwdriver Bit Pack 10-Piece",
+      "days_of_supply": "Warning (15-35d)",
+      "stock_level": "High (>40)",
+      "actual_urgency": "Optimal Buffer",
+      "predicted_urgency": "Optimal Buffer",
+      "correct": true
+    },
+    {
+      "name": "TouchPower Kevlar Jobsite Safety Shoes S3",
+      "days_of_supply": "Critical (<15d)",
+      "stock_level": "Medium (16-40)",
+      "actual_urgency": "Restock Warning",
+      "predicted_urgency": "Restock Warning",
+      "correct": true
+    },
+    {
+      "name": "Universal Surface Dust Extraction Shroud 5-Inch",
+      "days_of_supply": "Critical (<15d)",
+      "stock_level": "Low (<=15)",
+      "actual_urgency": "Critical Urgent",
+      "predicted_urgency": "Critical Urgent",
+      "correct": true
+    },
+    {
+      "name": "True Color Auto-Darkening Welding Helmet",
+      "days_of_supply": "Critical (<15d)",
+      "stock_level": "Medium (16-40)",
+      "actual_urgency": "Restock Warning",
+      "predicted_urgency": "Restock Warning",
+      "correct": true
+    },
+    {
+      "name": "Industrial Half-Face Respirator Double Filter",
+      "days_of_supply": "Warning (15-35d)",
+      "stock_level": "High (>40)",
+      "actual_urgency": "Optimal Buffer",
+      "predicted_urgency": "Optimal Buffer",
+      "correct": true
+    },
+    {
+      "name": "High-Decibel Commercial Noise Earmuffs 34dB",
+      "days_of_supply": "Warning (15-35d)",
+      "stock_level": "Medium (16-40)",
+      "actual_urgency": "Optimal Buffer",
+      "predicted_urgency": "Optimal Buffer",
+      "correct": true
+    },
+    {
+      "name": "Reinforced Anti-Vibration Heavy Rigging Gloves",
+      "days_of_supply": "Warning (15-35d)",
+      "stock_level": "High (>40)",
+      "actual_urgency": "Optimal Buffer",
+      "predicted_urgency": "Optimal Buffer",
+      "correct": true
+    },
+    {
+      "name": "Impact Resistant UV400 Safety Goggles with Seal",
+      "days_of_supply": "Warning (15-35d)",
+      "stock_level": "High (>40)",
+      "actual_urgency": "Optimal Buffer",
+      "predicted_urgency": "Optimal Buffer",
+      "correct": true
+    },
+    {
+      "name": "Full Body Fall Arrest Safety Harness Dual Lanyard",
+      "days_of_supply": "Warning (15-35d)",
+      "stock_level": "Medium (16-40)",
+      "actual_urgency": "Restock Warning",
+      "predicted_urgency": "Optimal Buffer",
+      "correct": false
+    }
+  ]
+}

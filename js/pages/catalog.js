@@ -12,13 +12,31 @@ import { store } from '../store.js';
 const CATEGORIES = ['All Tools', 'Machines', 'Blades', 'Bits', 'Safety Guards'];
 
 export async function renderCatalogPage(params = {}) {
-  // Read category, brand or search query from params
-  const currentCategory = params.category || 'All Tools';
+  // Read category, brand or search query from params and normalize
+  const rawCat = (params.category || 'All Tools').trim();
+  const cleanCat = rawCat.toLowerCase().replace(/-/g, ' ');
+
+  let currentCategory = 'All Tools';
+  if (cleanCat === 'all' || cleanCat === 'all tools' || !cleanCat) {
+    currentCategory = 'All Tools';
+  } else if (cleanCat === 'safety guards' || cleanCat === 'safety guard' || cleanCat === 'safety') {
+    currentCategory = 'Safety Guards';
+  } else if (cleanCat === 'machines' || cleanCat === 'machine') {
+    currentCategory = 'Machines';
+  } else if (cleanCat === 'blades' || cleanCat === 'blade') {
+    currentCategory = 'Blades';
+  } else if (cleanCat === 'bits' || cleanCat === 'bit') {
+    currentCategory = 'Bits';
+  } else {
+    const matched = CATEGORIES.find(c => c.toLowerCase() === cleanCat);
+    currentCategory = matched || rawCat;
+  }
+
   const currentBrand = params.brand || '';
   const searchQuery = params.q || '';
   const currentSort = params.sort || 'newest';
 
-  // Normalize category key
+  // Normalize category key for DB query (Safety Guards, Machines, etc.)
   const filterCat = currentCategory === 'All Tools' ? 'All' : currentCategory;
   const products = await db.getProducts({
     category: filterCat,

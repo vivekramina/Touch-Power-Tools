@@ -163,7 +163,7 @@ class SupabaseService {
     try {
       const params = new URLSearchParams();
       if (filter.category && filter.category !== 'All' && filter.category !== 'All Tools') {
-        params.set('category', filter.category);
+        params.set('category', filter.category.replace(/-/g, ' '));
       }
       if (filter.query) {
         params.set('query', filter.query);
@@ -182,7 +182,7 @@ class SupabaseService {
       const response = await fetch('/api/products' + queryString);
       if (response.ok) {
         const liveProducts = await response.json();
-        if (Array.isArray(liveProducts) && liveProducts.length > 0) {
+        if (Array.isArray(liveProducts)) {
           // Normalize specs & features if JSON strings
           let cleaned = liveProducts.map(p => ({
             ...p,
@@ -194,7 +194,10 @@ class SupabaseService {
             const b = filter.brand.toLowerCase();
             cleaned = cleaned.filter(p => p.brand && p.brand.toLowerCase().includes(b));
           }
-          localStorage.setItem(STORAGE_PRODUCTS_KEY, JSON.stringify(cleaned));
+          // Only update entire cache when requesting all products without restrictive filters
+          if (!filter.category && !filter.brand && !filter.query) {
+            localStorage.setItem(STORAGE_PRODUCTS_KEY, JSON.stringify(cleaned));
+          }
           return cleaned;
         }
       }
@@ -205,10 +208,16 @@ class SupabaseService {
     // 2. Local Storage Cache Fallback
     try {
       let products = JSON.parse(localStorage.getItem(STORAGE_PRODUCTS_KEY)) || INITIAL_PRODUCTS;
+      if (!Array.isArray(products) || products.length === 0) {
+        products = INITIAL_PRODUCTS;
+      }
       if (filter.category && filter.category !== 'All' && filter.category !== 'All Tools') {
-        products = products.filter(
-          (p) => p.category.toLowerCase() === filter.category.toLowerCase()
-        );
+        const targetCat = filter.category.toLowerCase().replace(/-/g, ' ').trim();
+        products = products.filter((p) => {
+          if (!p.category) return false;
+          const pCat = p.category.toLowerCase().replace(/-/g, ' ').trim();
+          return pCat === targetCat || pCat.startsWith(targetCat) || targetCat.startsWith(pCat);
+        });
       }
       if (filter.brand) {
         const b = filter.brand.toLowerCase();
@@ -576,6 +585,197 @@ class SupabaseService {
     }
     return null;
   }
+
+  // ==========================================================================
+  // DATA WAREHOUSE & NAÏVE BAYES MACHINE LEARNING METHODS
+  // ==========================================================================
+
+  async getDwhOverview() {
+    try {
+      const res = await fetch('/api/dwh/overview');
+      if (res.ok) return await res.json();
+    } catch (err) {
+      console.warn('Error fetching DWH overview:', err);
+    }
+    return null;
+  }
+
+  async getNaiveBayesEvaluation() {
+    try {
+      const res = await fetch('/api/ml/naive-bayes-eval');
+      if (res.ok) return await res.json();
+    } catch (err) {
+      console.warn('Error fetching Naive Bayes evaluation from server, using client engine:', err);
+    }
+    // Fallback: run in-browser ML
+    const ml = await import('./ml/naiveBayes.js');
+    const classifier = new ml.NaiveBayesDeliveryClassifier();
+    classifier.train();
+    return classifier.evaluate();
+  }
+
+  async classifyOrder(orderData) {
+    try {
+      const res = await fetch('/api/ml/classify-order', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(orderData)
+      });
+      if (res.ok) return await res.json();
+    } catch (err) {
+      console.warn('Error classifying order via server, using client engine:', err);
+    }
+    // Fallback: run in-browser inference
+    const ml = await import('./ml/naiveBayes.js');
+    const classifier = new ml.NaiveBayesDeliveryClassifier();
+    classifier.train();
+    return classifier.predict(orderData);
+  }
+
+  async predictSales() {
+    try {
+      const res = await fetch('/api/ml/predict-sales');
+      if (res.ok) return await res.json();
+    } catch (err) {
+      console.warn('Error fetching sales predictions from server, using client engine:', err);
+    }
+    // Fallback
+    const ml = await import('./ml/naiveBayes.js');
+    const prods = await this.getProducts();
+    const predictions = ml.SalesPredictionEngine.predictProductSales(prods);
+    const categorySummary = ml.SalesPredictionEngine.aggregateByCategory(predictions);
+    const businessFlow = ml.BusinessFlowEngine.getBusinessFlow();
+    const productAccuracy = ml.ProductRealUserAccuracyEngine.getRealUserAccuracy(prods);
+    return {
+      success: true,
+      totalProducts: predictions.length,
+      totalPredictedRevenue: predictions.reduce((s, p) => s + p.predicted30dRevenue, 0),
+      totalPredictedUnits: predictions.reduce((s, p) => s + p.predicted30dUnits, 0),
+      categorySummary,
+      businessFlow,
+      productAccuracy,
+      products: predictions
+    };
+  }
+
+  async calculateMonthYearOrders(month = 'March', year = '2026') {
+    try {
+      const res = await fetch(`/api/ml/calculate-month-year?month=${encodeURIComponent(month)}&year=${encodeURIComponent(year)}`);
+      if (res.ok) return await res.json();
+    } catch (err) {
+      console.warn('Error calculating month-year orders via server:', err);
+    }
+    const ml = await import('./ml/naiveBayes.js');
+    return ml.BusinessFlowEngine.calculateMonthYearOrders(month, year);
+  }
+
+  async sliceDice(filters = {}) {
+    try {
+      const res = await fetch('/api/dwh/slice-dice', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(filters)
+      });
+      if (res.ok) return await res.json();
+    } catch (err) {
+      console.warn('Error executing slice-dice:', err);
+    }
+    return { success: false, rows: [] };
+  }
+
+  async getDwhTable(tableName, limit = 50) {
+    try {
+      const res = await fetch(`/api/dwh/table-data?table=${encodeURIComponent(tableName)}&limit=${limit}`);
+      if (res.ok) return await res.json();
+    } catch (err) {
+      console.warn('Error fetching DWH table:', err);
+    }
+    return { table: tableName, rowCount: 0, columns: [], rows: [] };
+  }
+
+  async getRegressionEvaluation() {
+    try {
+      const res = await fetch('/api/ml/regression-eval');
+      if (res.ok) return await res.json();
+    } catch (err) {
+      console.warn('Error fetching regression eval from server, using client engine:', err);
+    }
+    const regModule = await import('./ml/dwmRegression.js');
+    return {
+      success: true,
+      slr: regModule.DwmRegressionEngine.fitSimpleLinearRegression(),
+      mlr: regModule.DwmRegressionEngine.getMultipleRegressionModel()
+    };
+  }
+
+  async predictRegression(payload) {
+    try {
+      const res = await fetch('/api/ml/predict-regression', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+      if (res.ok) return await res.json();
+    } catch (err) {
+      console.warn('Error predicting regression via server, using client engine:', err);
+    }
+    const regModule = await import('./ml/dwmRegression.js');
+    if (payload.type === 'slr') {
+      return { success: true, ...regModule.DwmRegressionEngine.predictSLR(payload.orders) };
+    } else {
+      return { success: true, ...regModule.DwmRegressionEngine.predictDemandMLR(payload) };
+    }
+  }
+
+  async getDecisionTreeEvaluation() {
+    try {
+      const res = await fetch('/api/ml/decision-tree-eval');
+      if (res.ok) return await res.json();
+    } catch (err) {
+      console.warn('Error fetching decision tree from server, using client engine:', err);
+    }
+    const dtModule = await import('./ml/decisionTree.js');
+    return {
+      success: true,
+      attributeRelevance: dtModule.DecisionTreeEngine.getAttributeRelevance(),
+      decisionRules: dtModule.DecisionTreeEngine.getDecisionRules()
+    };
+  }
+
+  async classifyDecisionTree(payload) {
+    try {
+      const res = await fetch('/api/ml/classify-decision-tree', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+      if (res.ok) return await res.json();
+    } catch (err) {
+      console.warn('Error classifying decision tree via server, using client engine:', err);
+    }
+    const dtModule = await import('./ml/decisionTree.js');
+    return {
+      success: true,
+      ...dtModule.DecisionTreeEngine.classifyProduct(payload)
+    };
+  }
+
+  async runPythonPipeline() {
+    try {
+      const res = await fetch('/api/ml/run-python-pipeline', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' }
+      });
+      if (res.ok) return await res.json();
+    } catch (err) {
+      console.warn('Error running python pipeline via server:', err);
+    }
+    return {
+      success: false,
+      message: 'Could not execute Python runner directly via browser HTTP. Please run: python scripts/dwm_analysis/run_all_dwm_models.py'
+    };
+  }
 }
 
 export const db = new SupabaseService();
+

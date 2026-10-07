@@ -1,0 +1,33 @@
+product_id,name,category,price,stock_count,monthly_units_velocity,rating,reviews_count,weight_kg,lead_time_days,actual_30d_demand,actual_30d_revenue,reorder_urgency
+P-101,TouchPower X-Pro Rotary Hammer Drill,Machines,9999,42,58,4.9,128,3.1,7,88,879912,Optimal Buffer
+P-102,Volt Compact Industrial Miter Saw 10-Inch,Machines,14499,28,42,4.9,94,8.5,10,56,811944,Restock Warning
+P-103,Sharp-Edge Heavy Duty Angle Grinder 850W,Machines,4899,8,54,4.8,110,2.2,5,120,587880,Critical Urgent
+P-104,Volt Precision Marble Cutter 125mm 1400W,Machines,3699,35,46,4.9,78,2.8,6,62,229338,Optimal Buffer
+P-105,Titan Demolition Breaker Hex-30 1800W,Machines,24999,14,24,4.9,52,16.5,14,32,799968,Restock Warning
+P-106,Volt Variable Speed Jigsaw 710W,Machines,3899,26,38,4.8,64,2.4,5,48,187152,Optimal Buffer
+P-107,Laser Precision Plunge Track Saw 1400W,Machines,18999,11,22,4.9,46,6.2,12,28,531972,Restock Warning
+P-108,ProCore Diamond Core Drill Rig 2200W,Machines,32999,6,18,4.9,38,12.0,15,24,791976,Critical Urgent
+P-201,Laser-Welded Segmented Diamond Blade 5-Inch,Blades,1299,65,92,4.9,165,0.3,3,142,184458,Optimal Buffer
+P-202,Continuous Rim Porcelain Tile Diamond Blade,Blades,1599,48,74,4.8,112,0.3,3,108,172692,Optimal Buffer
+P-203,Turbo Wave Granite & Masonry Blade 4.5-Inch,Blades,1449,15,82,4.9,134,0.3,4,124,179676,Critical Urgent
+P-204,Heavy Timber TCT Circular Saw Blade 40-Tooth,Blades,2199,32,48,4.9,86,0.6,5,64,140736,Optimal Buffer
+P-205,Cast Iron & Metal Cutting Diamond Wheel,Blades,2499,19,42,4.8,70,0.5,5,58,144942,Restock Warning
+P-206,High Speed Stainless Steel Cut-Off Wheel Pack,Blades,899,95,140,4.8,210,0.8,2,210,188790,Optimal Buffer
+P-207,Ultra-Thin Marble Slicing Blade 110mm,Blades,1199,22,66,4.9,98,0.3,4,96,115104,Restock Warning
+P-208,Laser Slotted Asphalt & Green Concrete Blade,Blades,3899,9,28,4.9,44,1.2,8,38,148162,Critical Urgent
+P-301,SDS-Plus Crosshead 4-Cutter Concrete Drill Bit,Bits,499,120,165,4.9,240,0.2,2,260,129740,Optimal Buffer
+P-302,SDS-Max Heavy Duty Bull Point Chisel 400mm,Bits,1499,34,52,4.9,88,1.1,4,74,110926,Optimal Buffer
+P-303,Industrial Cobalt HSS Drill Bit 19-Piece Set,Bits,3499,18,36,4.9,72,1.4,6,48,167952,Restock Warning
+P-304,Diamond Vacuum Brazed Dry Tile Coring Bit 35mm,Bits,1899,25,44,4.8,68,0.4,4,62,117738,Optimal Buffer
+P-305,Flat Spade Wood Boring Bit Set 6-Piece,Bits,799,55,58,4.7,82,0.5,3,80,63920,Optimal Buffer
+P-306,Step Drill Bit Titanium Nitride 4-32mm,Bits,1299,12,48,4.8,92,0.3,4,70,90930,Critical Urgent
+P-307,Concrete Coring Core Bit Crown 102mm,Bits,4999,7,20,4.9,42,2.8,10,28,139972,Critical Urgent
+P-308,Magnetic Impact Screwdriver Bit Pack 10-Piece,Bits,649,85,115,4.9,185,0.4,2,175,113575,Optimal Buffer
+P-401,TouchPower Kevlar Jobsite Safety Shoes S3,Safety Guards,3499,22,60,4.9,112,1.6,6,86,300914,Restock Warning
+P-402,Universal Surface Dust Extraction Shroud 5-Inch,Safety Guards,2899,14,54,4.9,98,0.9,5,78,226122,Critical Urgent
+P-403,True Color Auto-Darkening Welding Helmet,Safety Guards,4499,18,38,4.9,76,0.8,7,52,233948,Restock Warning
+P-404,Industrial Half-Face Respirator Double Filter,Safety Guards,1999,44,72,4.8,124,0.4,3,104,207896,Optimal Buffer
+P-405,High-Decibel Commercial Noise Earmuffs 34dB,Safety Guards,1499,38,48,4.8,84,0.3,4,68,101932,Optimal Buffer
+P-406,Reinforced Anti-Vibration Heavy Rigging Gloves,Safety Guards,999,60,88,4.9,146,0.3,3,126,125874,Optimal Buffer
+P-407,Impact Resistant UV400 Safety Goggles with Seal,Safety Guards,699,75,96,4.8,158,0.2,2,138,96462,Optimal Buffer
+P-408,Full Body Fall Arrest Safety Harness Dual Lanyard,Safety Guards,2999,16,32,4.9,62,2.1,6,45,134955,Restock Warning

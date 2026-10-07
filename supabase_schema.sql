@@ -393,4 +393,232 @@ INSERT INTO public.profiles (
   '+1-800-868-2479'
 ) ON CONFLICT (email) DO NOTHING;
 
+-- ============================================================================
+-- 9. DATA WAREHOUSE & MINING (DWM) STAR / SNOWFLAKE SCHEMA
+-- Fact Tables: fact_sales, fact_order_deliveries
+-- Dimension Tables: dim_date, dim_products, dim_customers, dim_carriers, dim_locations
+-- ============================================================================
+
+-- A. Date Dimension Table
+CREATE TABLE IF NOT EXISTS public.dim_date (
+  date_key INT PRIMARY KEY,
+  full_date DATE NOT NULL,
+  day_of_week INT NOT NULL,
+  day_name TEXT NOT NULL,
+  day_of_month INT NOT NULL,
+  month_num INT NOT NULL,
+  month_name TEXT NOT NULL,
+  quarter TEXT NOT NULL,
+  year INT NOT NULL,
+  is_weekend BOOLEAN NOT NULL,
+  fiscal_quarter TEXT NOT NULL
+);
+
+-- B. Product Dimension Table (Surrogate Key Architecture)
+CREATE TABLE IF NOT EXISTS public.dim_products (
+  product_key SERIAL PRIMARY KEY,
+  product_id UUID UNIQUE,
+  sku_code TEXT NOT NULL,
+  name TEXT NOT NULL,
+  category TEXT NOT NULL,
+  brand TEXT NOT NULL,
+  unit_cost_inr NUMERIC(10, 2) NOT NULL,
+  retail_price_inr NUMERIC(10, 2) NOT NULL,
+  commercial_tier TEXT NOT NULL,
+  created_at TIMESTAMPTZ DEFAULT timezone('utc'::text, now())
+);
+
+-- C. Customer Dimension Table
+CREATE TABLE IF NOT EXISTS public.dim_customers (
+  customer_key SERIAL PRIMARY KEY,
+  customer_id TEXT UNIQUE,
+  customer_name TEXT NOT NULL,
+  company_name TEXT NOT NULL,
+  contractor_type TEXT NOT NULL,
+  customer_tier TEXT NOT NULL,
+  city TEXT NOT NULL,
+  state TEXT NOT NULL,
+  region TEXT NOT NULL,
+  credit_limit_inr NUMERIC(12, 2) NOT NULL
+);
+
+-- D. Carrier / Logistics Dimension Table
+CREATE TABLE IF NOT EXISTS public.dim_carriers (
+  carrier_key SERIAL PRIMARY KEY,
+  carrier_name TEXT UNIQUE NOT NULL,
+  service_tier TEXT NOT NULL,
+  sla_transit_hours INT NOT NULL,
+  fleet_type TEXT NOT NULL,
+  is_active BOOLEAN DEFAULT true
+);
+
+-- E. Location / Geographic Zone Dimension Table
+CREATE TABLE IF NOT EXISTS public.dim_locations (
+  location_key SERIAL PRIMARY KEY,
+  city TEXT NOT NULL,
+  state TEXT NOT NULL,
+  zone TEXT NOT NULL,
+  distance_hub_km INT NOT NULL,
+  region TEXT NOT NULL
+);
+
+-- F. FACT SALES (Grain: Line-Item Order Transaction)
+CREATE TABLE IF NOT EXISTS public.fact_sales (
+  sale_id BIGSERIAL PRIMARY KEY,
+  order_id TEXT NOT NULL,
+  date_key INT REFERENCES public.dim_date(date_key),
+  product_key INT REFERENCES public.dim_products(product_key),
+  customer_key INT REFERENCES public.dim_customers(customer_key),
+  carrier_key INT REFERENCES public.dim_carriers(carrier_key),
+  quantity_sold INT NOT NULL CHECK (quantity_sold > 0),
+  unit_price NUMERIC(10, 2) NOT NULL,
+  discount_amount NUMERIC(10, 2) DEFAULT 0,
+  gross_revenue NUMERIC(12, 2) NOT NULL,
+  cogs_cost NUMERIC(12, 2) NOT NULL,
+  net_profit NUMERIC(12, 2) NOT NULL,
+  created_at TIMESTAMPTZ DEFAULT timezone('utc'::text, now())
+);
+
+-- G. FACT ORDER DELIVERIES (Ground Truth for Naïve Bayes Classification)
+CREATE TABLE IF NOT EXISTS public.fact_order_deliveries (
+  delivery_id BIGSERIAL PRIMARY KEY,
+  order_id TEXT NOT NULL,
+  date_key INT REFERENCES public.dim_date(date_key),
+  carrier_key INT REFERENCES public.dim_carriers(carrier_key),
+  customer_key INT REFERENCES public.dim_customers(customer_key),
+  cargo_weight_kg NUMERIC(8, 2) NOT NULL,
+  item_count INT NOT NULL,
+  destination_zone TEXT NOT NULL,
+  distance_km INT NOT NULL,
+  promised_hours INT NOT NULL,
+  actual_hours INT NOT NULL,
+  priority_tier TEXT NOT NULL,
+  delivery_status TEXT NOT NULL,
+  on_time_flag INT NOT NULL CHECK (on_time_flag IN (0, 1)),
+  created_at TIMESTAMPTZ DEFAULT timezone('utc'::text, now())
+);
+
+-- ============================================================================
+-- 10. OLAP VIEWS & MULTI-DIMENSIONAL CUBES
+-- ============================================================================
+
+-- OLAP Cube: Multi-Dimensional Sales Cube by Category, Region, and Quarter
+CREATE OR REPLACE VIEW public.vw_olap_sales_cube AS
+SELECT 
+  dp.category,
+  dc.region,
+  dd.quarter,
+  dd.year,
+  COUNT(fs.sale_id) AS transactions_count,
+  SUM(fs.quantity_sold) AS total_units_sold,
+  ROUND(SUM(fs.gross_revenue), 2) AS total_gross_revenue,
+  ROUND(SUM(fs.net_profit), 2) AS total_net_profit,
+  ROUND(AVG(fs.gross_revenue), 2) AS avg_transaction_value
+FROM public.fact_sales fs
+JOIN public.dim_products dp ON fs.product_key = dp.product_key
+JOIN public.dim_customers dc ON fs.customer_key = dc.customer_key
+JOIN public.dim_date dd ON fs.date_key = dd.date_key
+GROUP BY dp.category, dc.region, dd.quarter, dd.year;
+
+-- OLAP View: Carrier SLA Compliance & On-Time Performance
+CREATE OR REPLACE VIEW public.vw_olap_delivery_performance AS
+SELECT 
+  dca.carrier_name,
+  dca.service_tier,
+  COUNT(*) AS total_dispatches,
+  SUM(fod.on_time_flag) AS on_time_count,
+  COUNT(*) - SUM(fod.on_time_flag) AS delayed_count,
+  ROUND(AVG(fod.actual_hours)::numeric, 1) AS avg_transit_hours,
+  ROUND((SUM(fod.on_time_flag)::numeric / COUNT(*) * 100), 1) AS on_time_rate_pct
+FROM public.fact_order_deliveries fod
+JOIN public.dim_carriers dca ON fod.carrier_key = dca.carrier_key
+GROUP BY dca.carrier_name, dca.service_tier;
+
+-- OLAP View: Cumulative Rollup with Window Functions
+CREATE OR REPLACE VIEW public.vw_olap_monthly_category_rollup AS
+SELECT 
+  dp.category,
+  dd.month_name,
+  dd.year,
+  SUM(fs.gross_revenue) AS monthly_revenue,
+  SUM(fs.quantity_sold) AS monthly_units,
+  SUM(SUM(fs.gross_revenue)) OVER (
+    PARTITION BY dp.category, dd.year 
+    ORDER BY dd.month_num
+  ) AS cumulative_ytd_revenue,
+  RANK() OVER (
+    PARTITION BY dd.month_num, dd.year 
+    ORDER BY SUM(fs.gross_revenue) DESC
+  ) AS category_revenue_rank
+FROM public.fact_sales fs
+JOIN public.dim_products dp ON fs.product_key = dp.product_key
+JOIN public.dim_date dd ON fs.date_key = dd.date_key
+GROUP BY dp.category, dd.month_num, dd.month_name, dd.year;
+
+-- ============================================================================
+-- 11. OLAP STORED PROCEDURES & FUNCTIONS
+-- ============================================================================
+
+-- Function: Multi-Dimensional Slice & Dice Query
+CREATE OR REPLACE FUNCTION public.fn_olap_slice_dice(
+  p_category TEXT DEFAULT NULL,
+  p_region TEXT DEFAULT NULL,
+  p_quarter TEXT DEFAULT NULL
+)
+RETURNS TABLE (
+  category TEXT,
+  region TEXT,
+  quarter TEXT,
+  total_units BIGINT,
+  total_revenue NUMERIC,
+  total_profit NUMERIC
+) AS $$
+BEGIN
+  RETURN QUERY
+  SELECT 
+    dp.category,
+    dc.region,
+    dd.quarter,
+    SUM(fs.quantity_sold)::BIGINT,
+    ROUND(SUM(fs.gross_revenue), 2),
+    ROUND(SUM(fs.net_profit), 2)
+  FROM public.fact_sales fs
+  JOIN public.dim_products dp ON fs.product_key = dp.product_key
+  JOIN public.dim_customers dc ON fs.customer_key = dc.customer_key
+  JOIN public.dim_date dd ON fs.date_key = dd.date_key
+  WHERE (p_category IS NULL OR dp.category ILIKE p_category)
+    AND (p_region IS NULL OR dc.region ILIKE p_region)
+    AND (p_quarter IS NULL OR dd.quarter ILIKE p_quarter)
+  GROUP BY dp.category, dc.region, dd.quarter
+  ORDER BY total_revenue DESC;
+END;
+$$ LANGUAGE plpgsql;
+
+-- Function: Extract Pre-Processed Naïve Bayes Classification Training Data
+CREATE OR REPLACE FUNCTION public.fn_get_naive_bayes_training_data()
+RETURNS TABLE (
+  carrier TEXT,
+  zone TEXT,
+  weight_kg NUMERIC,
+  items INT,
+  distance_km INT,
+  priority TEXT,
+  on_time INT
+) AS $$
+BEGIN
+  RETURN QUERY
+  SELECT 
+    dca.carrier_name,
+    fod.destination_zone,
+    fod.cargo_weight_kg,
+    fod.item_count,
+    fod.distance_km,
+    fod.priority_tier,
+    fod.on_time_flag
+  FROM public.fact_order_deliveries fod
+  JOIN public.dim_carriers dca ON fod.carrier_key = dca.carrier_key;
+END;
+$$ LANGUAGE plpgsql;
+
 -- Schema setup completed successfully
+

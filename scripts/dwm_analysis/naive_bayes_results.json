@@ -1,0 +1,233 @@
+{
+  "module": "Na\u00efve Bayes Classification",
+  "dataset_summary": {
+    "total_samples": 80,
+    "train_samples": 60,
+    "test_samples": 20
+  },
+  "priors": {
+    "On-Time": 0.8,
+    "Delayed": 0.2
+  },
+  "confusion_matrix": {
+    "tp": 14,
+    "fp": 0,
+    "fn": 0,
+    "tn": 6,
+    "total": 20
+  },
+  "metrics": {
+    "accuracy": 100.0,
+    "precision": 100.0,
+    "recall": 100.0,
+    "f1_score": 100.0,
+    "specificity": 100.0
+  },
+  "delayed_metrics": {
+    "precision": 100.0,
+    "recall": 100.0,
+    "f1_score": 100.0
+  },
+  "sample_predictions": [
+    {
+      "order_id": "ORD-2001",
+      "carrier": "TouchPower BlueDart Direct",
+      "zone": "Metro Corridor",
+      "weight_kg": "3.5",
+      "actual": "On-Time",
+      "predicted": "On-Time",
+      "confidence": 99.9,
+      "is_correct": true
+    },
+    {
+      "order_id": "ORD-2002",
+      "carrier": "TouchPower BlueDart Direct",
+      "zone": "Metro Corridor",
+      "weight_kg": "12.0",
+      "actual": "On-Time",
+      "predicted": "On-Time",
+      "confidence": 99.9,
+      "is_correct": true
+    },
+    {
+      "order_id": "ORD-2003",
+      "carrier": "TouchPower BlueDart Direct",
+      "zone": "Expressway Transit",
+      "weight_kg": "7.2",
+      "actual": "On-Time",
+      "predicted": "On-Time",
+      "confidence": 99.6,
+      "is_correct": true
+    },
+    {
+      "order_id": "ORD-2004",
+      "carrier": "TouchPower BlueDart Direct",
+      "zone": "Remote Jobsite",
+      "weight_kg": "35.0",
+      "actual": "Delayed",
+      "predicted": "Delayed",
+      "confidence": 99.2,
+      "is_correct": true
+    },
+    {
+      "order_id": "ORD-2005",
+      "carrier": "FedEx Heavy Cargo",
+      "zone": "Metro Corridor",
+      "weight_kg": "42.0",
+      "actual": "On-Time",
+      "predicted": "On-Time",
+      "confidence": 99.7,
+      "is_correct": true
+    },
+    {
+      "order_id": "ORD-2006",
+      "carrier": "FedEx Heavy Cargo",
+      "zone": "Expressway Transit",
+      "weight_kg": "30.0",
+      "actual": "On-Time",
+      "predicted": "On-Time",
+      "confidence": 94.5,
+      "is_correct": true
+    },
+    {
+      "order_id": "ORD-2007",
+      "carrier": "FedEx Heavy Cargo",
+      "zone": "Remote Jobsite",
+      "weight_kg": "78.0",
+      "actual": "Delayed",
+      "predicted": "Delayed",
+      "confidence": 99.8,
+      "is_correct": true
+    },
+    {
+      "order_id": "ORD-2008",
+      "carrier": "FedEx Heavy Cargo",
+      "zone": "Industrial Complex",
+      "weight_kg": "50.0",
+      "actual": "On-Time",
+      "predicted": "On-Time",
+      "confidence": 99.6,
+      "is_correct": true
+    },
+    {
+      "order_id": "ORD-2009",
+      "carrier": "ProFreight Express",
+      "zone": "Metro Corridor",
+      "weight_kg": "2.0",
+      "actual": "On-Time",
+      "predicted": "On-Time",
+      "confidence": 99.9,
+      "is_correct": true
+    },
+    {
+      "order_id": "ORD-2010",
+      "carrier": "ProFreight Express",
+      "zone": "Expressway Transit",
+      "weight_kg": "5.5",
+      "actual": "On-Time",
+      "predicted": "On-Time",
+      "confidence": 99.9,
+      "is_correct": true
+    },
+    {
+      "order_id": "ORD-2011",
+      "carrier": "ProFreight Express",
+      "zone": "Remote Jobsite",
+      "weight_kg": "22.0",
+      "actual": "Delayed",
+      "predicted": "Delayed",
+      "confidence": 98.9,
+      "is_correct": true
+    },
+    {
+      "order_id": "ORD-2012",
+      "carrier": "ProFreight Express",
+      "zone": "Industrial Complex",
+      "weight_kg": "9.5",
+      "actual": "On-Time",
+      "predicted": "On-Time",
+      "confidence": 100.0,
+      "is_correct": true
+    },
+    {
+      "order_id": "ORD-2013",
+      "carrier": "UPS Jobsite Direct",
+      "zone": "Metro Corridor",
+      "weight_kg": "6.0",
+      "actual": "On-Time",
+      "predicted": "On-Time",
+      "confidence": 99.7,
+      "is_correct": true
+    },
+    {
+      "order_id": "ORD-2014",
+      "carrier": "UPS Jobsite Direct",
+      "zone": "Expressway Transit",
+      "weight_kg": "21.0",
+      "actual": "Delayed",
+      "predicted": "Delayed",
+      "confidence": 95.5,
+      "is_correct": true
+    },
+    {
+      "order_id": "ORD-2015",
+      "carrier": "UPS Jobsite Direct",
+      "zone": "Remote Jobsite",
+      "weight_kg": "18.0",
+      "actual": "Delayed",
+      "predicted": "Delayed",
+      "confidence": 99.3,
+      "is_correct": true
+    },
+    {
+      "order_id": "ORD-2016",
+      "carrier": "UPS Jobsite Direct",
+      "zone": "Industrial Complex",
+      "weight_kg": "10.0",
+      "actual": "On-Time",
+      "predicted": "On-Time",
+      "confidence": 100.0,
+      "is_correct": true
+    },
+    {
+      "order_id": "ORD-2017",
+      "carrier": "TouchPower BlueDart Direct",
+      "zone": "Metro Corridor",
+      "weight_kg": "4.2",
+      "actual": "On-Time",
+      "predicted": "On-Time",
+      "confidence": 100.0,
+      "is_correct": true
+    },
+    {
+      "order_id": "ORD-2018",
+      "carrier": "FedEx Heavy Cargo",
+      "zone": "Industrial Complex",
+      "weight_kg": "65.0",
+      "actual": "On-Time",
+      "predicted": "On-Time",
+      "confidence": 99.4,
+      "is_correct": true
+    },
+    {
+      "order_id": "ORD-2019",
+      "carrier": "ProFreight Express",
+      "zone": "Metro Corridor",
+      "weight_kg": "3.8",
+      "actual": "On-Time",
+      "predicted": "On-Time",
+      "confidence": 100.0,
+      "is_correct": true
+    },
+    {
+      "order_id": "ORD-2020",
+      "carrier": "UPS Jobsite Direct",
+      "zone": "Remote Jobsite",
+      "weight_kg": "12.0",
+      "actual": "Delayed",
+      "predicted": "Delayed",
+      "confidence": 94.7,
+      "is_correct": true
+    }
+  ]
+}

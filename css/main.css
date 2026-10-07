@@ -273,6 +273,52 @@ img {
   border-radius: 4px;
 }
 
+/* DWM Dark Banner Sub-Tab Navigation Bar */
+.dwm-subtab-btn {
+  background: rgba(15, 23, 42, 0.75) !important;
+  color: #f1f5f9 !important;
+  border: 1px solid rgba(255, 255, 255, 0.22) !important;
+  border-radius: 6px !important;
+  font-family: var(--font-mono) !important;
+  font-size: 0.78rem !important;
+  font-weight: 700 !important;
+  padding: 8px 16px !important;
+  cursor: pointer !important;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.25) !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 6px !important;
+  white-space: nowrap !important;
+}
+
+.dwm-subtab-btn:hover {
+  background: rgba(255, 255, 255, 0.16) !important;
+  border-color: rgba(255, 255, 255, 0.45) !important;
+  color: #ffffff !important;
+  transform: translateY(-1px) !important;
+}
+
+.dwm-subtab-btn.active {
+  background: linear-gradient(135deg, #ea580c 0%, #c2410c 100%) !important;
+  color: #ffffff !important;
+  border-color: #ea580c !important;
+  box-shadow: 0 4px 14px rgba(234, 88, 12, 0.45) !important;
+  font-weight: 800 !important;
+}
+
+.dwm-subtab-btn.dwm-subtab-btn-python:not(.active) {
+  background: rgba(245, 158, 11, 0.12) !important;
+  border-color: rgba(245, 158, 11, 0.4) !important;
+  color: #fbbf24 !important;
+}
+
+.dwm-subtab-btn.dwm-subtab-btn-python:not(.active):hover {
+  background: rgba(245, 158, 11, 0.22) !important;
+  border-color: rgba(245, 158, 11, 0.65) !important;
+  color: #fef08a !important;
+}
+
 .btn-lg {
   padding: 13px 26px;
   font-size: 1rem;

@@ -1,0 +1,122 @@
+{
+  "slr": {
+    "model_type": "Simple Linear Regression (SLR)",
+    "target_variable": "Monthly Revenue (\u20b9 Lakhs)",
+    "predictor_variable": "Monthly Orders Dispatched",
+    "beta_0_intercept": 0.57564,
+    "beta_1_slope": 0.19123,
+    "equation": "Revenue_Lakhs = 0.5756 + 0.1912 * Orders",
+    "correlation_r": 1.0,
+    "r_squared": 1.0,
+    "mae_lakhs": 0.0793,
+    "rmse_lakhs": 0.094,
+    "sample_inferences": [
+      {
+        "input_orders": 150,
+        "predicted_revenue_lakhs": 29.26,
+        "predicted_revenue_rupees": 2926005
+      },
+      {
+        "input_orders": 200,
+        "predicted_revenue_lakhs": 38.82,
+        "predicted_revenue_rupees": 3882151
+      },
+      {
+        "input_orders": 350,
+        "predicted_revenue_lakhs": 67.51,
+        "predicted_revenue_rupees": 6750592
+      },
+      {
+        "input_orders": 500,
+        "predicted_revenue_lakhs": 96.19,
+        "predicted_revenue_rupees": 9619033
+      }
+    ]
+  },
+  "mlr": {
+    "model_type": "Multiple Linear Regression (MLR)",
+    "target_variable": "30-Day Unit Demand",
+    "sample_size": 32,
+    "features": [
+      "Price (\u20b9)",
+      "Velocity (Units)",
+      "Rating (Stars)",
+      "Stock Count",
+      "Weight (kg)"
+    ],
+    "coefficients": {
+      "intercept_beta_0": 120.0929,
+      "beta_price": 0.00021,
+      "beta_velocity": 1.848915,
+      "beta_rating": -27.1974,
+      "beta_stock": -0.334024,
+      "beta_weight": 0.0989
+    },
+    "r_squared": 0.9824,
+    "adjusted_r_squared": 0.979,
+    "mae": 4.43,
+    "rmse": 7.038,
+    "sample_outputs": [
+      {
+        "product_name": "TouchPower X-Pro Rotary Hammer Drill",
+        "actual_demand": 88,
+        "predicted_demand": 82.4,
+        "residual_error": 5.6
+      },
+      {
+        "product_name": "Volt Compact Industrial Miter Saw 10-Inch",
+        "actual_demand": 56,
+        "predicted_demand": 59.0,
+        "residual_error": -3.0
+      },
+      {
+        "product_name": "Sharp-Edge Heavy Duty Angle Grinder 850W",
+        "actual_demand": 120,
+        "predicted_demand": 88.0,
+        "residual_error": 32.0
+      },
+      {
+        "product_name": "Volt Precision Marble Cutter 125mm 1400W",
+        "actual_demand": 62,
+        "predicted_demand": 61.2,
+        "residual_error": 0.8
+      },
+      {
+        "product_name": "Titan Demolition Breaker Hex-30 1800W",
+        "actual_demand": 32,
+        "predicted_demand": 33.4,
+        "residual_error": -1.4
+      },
+      {
+        "product_name": "Volt Variable Speed Jigsaw 710W",
+        "actual_demand": 48,
+        "predicted_demand": 52.2,
+        "residual_error": -4.2
+      },
+      {
+        "product_name": "Laser Precision Plunge Track Saw 1400W",
+        "actual_demand": 28,
+        "predicted_demand": 28.4,
+        "residual_error": -0.4
+      },
+      {
+        "product_name": "ProCore Diamond Core Drill Rig 2200W",
+        "actual_demand": 24,
+        "predicted_demand": 26.2,
+        "residual_error": -2.2
+      },
+      {
+        "product_name": "Laser-Welded Segmented Diamond Blade 5-Inch",
+        "actual_demand": 142,
+        "predicted_demand": 135.5,
+        "residual_error": 6.5
+      },
+      {
+        "product_name": "Continuous Rim Porcelain Tile Diamond Blade",
+        "actual_demand": 108,
+        "predicted_demand": 110.7,
+        "residual_error": -2.7
+      }
+    ]
+  }
+}
